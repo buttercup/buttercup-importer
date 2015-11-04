@@ -1,0 +1,25 @@
+{
+  "name": "buttercup-import-keepass",
+  "version": "0.1.1",
+  "description": "Buttercup archive importer for Keepass archives",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perry-mitchell/buttercup-import-keepass.git"
+  },
+  "keywords": [
+    "buttercup",
+    "keepass",
+    "import",
+    "password"
+  ],
+  "author": "Perry Mitchell <perry@perrymitchell.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perry-mitchell/buttercup-import-keepass/issues"
+  },
+  "homepage": "https://github.com/perry-mitchell/buttercup-import-keepass#readme"
+}
