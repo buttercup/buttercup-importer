@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/perry-mitchell/buttercup-import-keepass/issues"
   },
-  "homepage": "https://github.com/perry-mitchell/buttercup-import-keepass#readme"
+  "homepage": "https://github.com/perry-mitchell/buttercup-import-keepass#readme",
+  "dependencies": {
+    "kdbxweb": "^0.2.1"
+  }
 }
