@@ -1,6 +1,8 @@
 # Buttercup Archive Importer
 Import archives from other password managers.
 
+[![Build Status](https://travis-ci.org/perry-mitchell/buttercup-importer.svg?branch=master)](https://travis-ci.org/perry-mitchell/buttercup-importer)
+
 ## About
 This archive importer coverts password archives from other formats to the Buttercup archive format (BCUP).
 
