@@ -6,6 +6,13 @@
 
 	module.exports = {
 
+		/**
+		 * Import a Keepass 2 KDBX archive
+		 * @param {String} kdbxFile A KDBX archive filename
+		 * @param {String} password The password for the archive (loading KDBX and saving BCUP)
+		 * @param {String} destination The destionation location to save the BCUP archive
+		 * @returns {Promise}
+		 */
 		importFromKDBX: function (kdbxFile, password, destination) {
 			var KDBXImporter  = require(LIB_PATH + "/import_kdbx.js"),
 				importer = new KDBXImporter(kdbxFile, destination);
