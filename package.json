@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/perry-mitchell/buttercup-import-keepass#readme",
   "dependencies": {
+    "buttercup": "^0.6.0",
     "kdbxweb": "^0.2.1"
   }
 }

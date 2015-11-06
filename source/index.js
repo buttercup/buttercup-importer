@@ -1,26 +1,20 @@
-(function() {
+(function(module) {
 
 	"use strict";
 
-	var kdbxweb = require("kdbxweb"),
-		fs = require("fs");
+	var LIB_PATH = __dirname + "/do_you_even";
 
-	function toArrayBuffer(buffer) {
-		var ab = new ArrayBuffer(buffer.length);
-		var view = new Uint8Array(ab);
-		for (var i = 0; i < buffer.length; ++i) {
-			view[i] = buffer[i];
-		}
-		return ab;
-	}
+	module.exports = {
 
-	fs.readFile("somefile.kdbx", function(err, data) {
-		var credentials = new kdbxweb.Credentials(kdbxweb.ProtectedValue.fromString('pass'));
-		kdbxweb.Kdbx.load(toArrayBuffer(data), credentials, function(db) {
-			db.saveXml(function(xmlString) {
-				console.log("XML", xmlString);
+		importFromKDBX: function (kdbxFile, password, destination) {
+			var KDBXImporter  = require(LIB_PATH + "/import_kdbx.js"),
+				importer = new KDBXImporter(kdbxFile, destination);
+			return importer.export(password).catch(function(err) {
+				console.error("Failed exporting archive", err);
+				throw err;
 			});
-		});
-	});
+		}
 
-})();
+	};
+
+})(module);
