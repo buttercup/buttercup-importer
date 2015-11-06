@@ -53,6 +53,7 @@
 						.setArchive(archive)
 						.setDatasource(datasource)
 						.save();
+					return archive;
 				});
 		});
 	}

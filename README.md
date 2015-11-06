@@ -1,2 +1,4 @@
-# buttercup-import-keepass
-Keepass importer for Buttercup
+# Buttercup Archive Importer
+Import archives from other password managers.
+
+
