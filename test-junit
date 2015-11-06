@@ -2,4 +2,4 @@
 
 NODEUNIT="./node_modules/nodeunit/bin/nodeunit"
 
-node "$NODEUNIT" tests/specs --reporter junit --output build
+node "$NODEUNIT" tests/cli --reporter junit --output build

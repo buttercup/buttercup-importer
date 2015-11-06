@@ -2,4 +2,4 @@
 
 NODEUNIT="./node_modules/nodeunit/bin/nodeunit"
 
-node "$NODEUNIT" tests/specs
+node "$NODEUNIT" tests/cli
