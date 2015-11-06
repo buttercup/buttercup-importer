@@ -1,14 +1,14 @@
 {
-  "name": "buttercup-import-keepass",
+  "name": "buttercup-importer",
   "version": "0.2.0",
-  "description": "Buttercup archive importer for Keepass archives",
+  "description": "Buttercup archive importer for other password manager archives",
   "main": "source/index.js",
   "scripts": {
     "test": "bash test-junit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perry-mitchell/buttercup-import-keepass.git"
+    "url": "git+https://github.com/perry-mitchell/buttercup-importer.git"
   },
   "keywords": [
     "buttercup",
@@ -19,9 +19,9 @@
   "author": "Perry Mitchell <perry@perrymitchell.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/perry-mitchell/buttercup-import-keepass/issues"
+    "url": "https://github.com/perry-mitchell/buttercup-importer/issues"
   },
-  "homepage": "https://github.com/perry-mitchell/buttercup-import-keepass#readme",
+  "homepage": "https://github.com/perry-mitchell/buttercup-importer#readme",
   "dependencies": {
     "buttercup": "^0.6.0",
     "kdbxweb": "^0.2.1"
