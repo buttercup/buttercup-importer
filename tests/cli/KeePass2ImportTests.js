@@ -1,4 +1,4 @@
-var ButtercupImporter = require(__dirname + "/../../source/index.js"),
+var ButtercupImporter = require(__dirname + "/../../source/lib.js"),
 	Buttercup = require("buttercup"),
 	ButtercupArchive = Buttercup.Archive,
 	ManagedGroup = Buttercup.ManagedGroup;

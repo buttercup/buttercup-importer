@@ -2,7 +2,7 @@
   "name": "buttercup-importer",
   "version": "0.2.0",
   "description": "Buttercup archive importer for other password manager archives",
-  "main": "source/index.js",
+  "main": "source/app.js",
   "scripts": {
     "test": "bash test-junit"
   },
@@ -24,7 +24,8 @@
   "homepage": "https://github.com/perry-mitchell/buttercup-importer#readme",
   "dependencies": {
     "buttercup": "^0.6.0",
-    "kdbxweb": "^0.2.1"
+    "kdbxweb": "^0.2.1",
+    "xml2js": "^0.4.13"
   },
   "devDependencies": {
     "nodeunit": "^0.9.1"

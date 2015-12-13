@@ -6,7 +6,8 @@
 		kdbxweb = require("kdbxweb");
 
 	var Buttercup = require("buttercup"),
-		KeePass2XMLImporter = Buttercup.KeePass2XMLImporter;
+		KeePass2Importer = require(__dirname + "/KeePass2Importer.js");
+		//KeePass2XMLImporter = Buttercup.KeePass2XMLImporter;
 
 	function toArrayBuffer(buffer) {
 		var ab = new ArrayBuffer(buffer.length);
@@ -43,7 +44,7 @@
 				db.saveXml(resolve);
 			});
 		}).then(function(xmlString) {
-			var xmlImporter = new KeePass2XMLImporter(xmlString);
+			var xmlImporter = new KeePass2Importer(xmlString);
 			return xmlImporter.exportArchive()
 				.then(function(archive) {
 					var workspace = new Buttercup.Workspace(),
