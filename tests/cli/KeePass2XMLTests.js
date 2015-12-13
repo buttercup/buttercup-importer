@@ -1,5 +1,5 @@
 var Buttercup = require("Buttercup"),
-	KeePass2XMLImporter = Buttercup.KeePass2XMLImporter,
+	KeePass2Importer = require(__dirname + "/../../source/do_you_even/KeePass2Importer.js"),
 	ManagedGroup = Buttercup.ManagedGroup,
 	ManagedEntry = Buttercup.ManagedEntry;
 
@@ -7,11 +7,14 @@ module.exports = {
 
 	setUp: function(cb) {
 		var _this = this;
-		KeePass2XMLImporter.loadFromFile(__dirname + "/../resources/test.kdbx.xml")
+		KeePass2Importer.loadFromFile(__dirname + "/../resources/test.kdbx.xml")
 			.then(function(importer) {
 				return importer.exportArchive();
 			})
 			.then(function(archive) {
+				if (archive instanceof Buttercup.Archive !== true) {
+					throw new Error("Failed exporting archive");
+				}
 				_this.archive = archive;
 				_this.history = archive._getWestley().getHistory().join("\n");
 				(cb)();

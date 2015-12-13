@@ -7,7 +7,6 @@
 
 	var Buttercup = require("buttercup"),
 		KeePass2Importer = require(__dirname + "/KeePass2Importer.js");
-		//KeePass2XMLImporter = Buttercup.KeePass2XMLImporter;
 
 	function toArrayBuffer(buffer) {
 		var ab = new ArrayBuffer(buffer.length);

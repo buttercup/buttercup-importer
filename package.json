@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/perry-mitchell/buttercup-importer#readme",
   "dependencies": {
-    "buttercup": "^0.6.0",
+    "buttercup": "^0.10.2",
     "kdbxweb": "^0.2.1",
     "xml2js": "^0.4.13"
   },

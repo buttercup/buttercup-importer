@@ -8,7 +8,6 @@
 	var Buttercup = require("buttercup");
 
 	var Archive = Buttercup.Archive,
-		Inigo = Buttercup.Inigo,
 		ManagedGroup = Buttercup.ManagedGroup,
 		ManagedEntry = Buttercup.ManagedEntry;
 
@@ -30,14 +29,15 @@
 
 	function processGroup(group, archive, currentGroup) {
 		var subgroups = group.Group || [];
+		currentGroup = currentGroup || archive;
 		subgroups.forEach(function(subgroup) {
-			var group = (currentGroup || archive).createGroup(extractString(subgroup.Name));
+			var buttercupGroup = currentGroup.createGroup(extractString(subgroup.Name));
 			if (subgroup.Group) {
-				processGroup(subgroup, archive, group);
+				processGroup(subgroup, archive, buttercupGroup);
 			}
 			if (subgroup.Entry) {
 				subgroup.Entry.forEach(function(subentry) {
-					var entry = group.createEntry();
+					var entry = buttercupGroup.createEntry();
 					if (subentry.String) {
 						subentry.String.forEach(function(keyValuePair) {
 							var actualKey = extractString(keyValuePair.Key),
@@ -78,13 +78,15 @@
 			try {
 				rootGroup = keepassJS.KeePassFile.Root[0];
 			} catch (err) {
-				// squelch error
+				console.error("KeePass root group not found");
 			}
 			processGroup(
 				rootGroup || {},
 				archive
 			);
 			return archive;
+		}).catch(function(err) {
+			console.error("Failed parsing KDBX archive: " + err.message);
 		});
 	};
 
