@@ -1,4 +1,4 @@
-var Buttercup = require("Buttercup"),
+var Buttercup = require("buttercup"),
 	KeePass2Importer = require(__dirname + "/../../source/do_you_even/KeePass2Importer.js"),
 	ManagedGroup = Buttercup.ManagedGroup,
 	ManagedEntry = Buttercup.ManagedEntry;
