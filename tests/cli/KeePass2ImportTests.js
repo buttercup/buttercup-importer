@@ -38,6 +38,8 @@ module.exports = {
 					});
 					test.ok(generalGroup instanceof ManagedGroup, "Archive should contain General group");
 					test.done();
+				}).catch(function(err) {
+					console.error("Failed: " + err.message);
 				});
 		},
 
@@ -57,6 +59,8 @@ module.exports = {
 					test.strictEqual(sampleEntry.getProperty("username"), "buttercup", "Username should be correct");
 					test.strictEqual(sampleEntry.getProperty("password"), "westley", "Password should be correct");
 					test.done();
+				}).catch(function(err) {
+					console.error("Failed: " + err.message);
 				});
 		}
 
