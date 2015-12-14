@@ -6,6 +6,10 @@
 
 	module.exports = {
 
+		importFrom1PIF: function(pifPath, password, destination) {
+			
+		},
+
 		/**
 		 * Import a Keepass 2 KDBX archive
 		 * @param {String} kdbxFile A KDBX archive filename
@@ -13,8 +17,8 @@
 		 * @param {String} destination The destionation location to save the BCUP archive
 		 * @returns {Promise}
 		 */
-		importFromKDBX: function (kdbxFile, password, destination) {
-			var KDBXImporter  = require(LIB_PATH + "/import_kdbx.js"),
+		importFromKDBX: function(kdbxFile, password, destination) {
+			var KDBXImporter  = require(LIB_PATH + "/KDBXImporter.js"),
 				importer = new KDBXImporter(kdbxFile, destination);
 			return importer.export(password).catch(function(err) {
 				console.error("Failed exporting archive", err);
