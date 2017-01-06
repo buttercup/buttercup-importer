@@ -1,7 +1,9 @@
+"use strict";
+
 var Buttercup = require("buttercup"),
 	KeePass2Importer = require(__dirname + "/../../source/do_you_even/KeePass2Importer.js"),
-	ManagedGroup = Buttercup.ManagedGroup,
-	ManagedEntry = Buttercup.ManagedEntry;
+	Group = Buttercup.Group,
+	Entry = Buttercup.Entry;
 
 module.exports = {
 
@@ -45,7 +47,7 @@ module.exports = {
 
 		testContainsRootGroup: function(test) {
 			var buttercupGroup = this.archive.getGroups()[0];
-			test.ok(buttercupGroup instanceof ManagedGroup, "Imported archive should contain root group");
+			test.ok(buttercupGroup instanceof Group, "Imported archive should contain root group");
 			test.done();
 		},
 
@@ -54,14 +56,14 @@ module.exports = {
 				generalGroup = buttercupGroup.getGroups().filter(function(group) {
 					return group.getTitle() === "General";
 				})[0];
-			test.ok(generalGroup instanceof ManagedGroup, "Imported archive should contain sub group");
+			test.ok(generalGroup instanceof Group, "Imported archive should contain sub group");
 			test.done();
 		},
 
 		testContainsSampleEntry: function(test) {
 			var buttercupGroup = this.archive.getGroups()[0],
 				sampleEntry = buttercupGroup.getEntries()[0];
-			test.ok(sampleEntry instanceof ManagedEntry, "Imported archive should contain sample entry");
+			test.ok(sampleEntry instanceof Entry, "Imported archive should contain sample entry");
 			test.strictEqual(sampleEntry.getProperty("title"), "Buttercup test", "Sample title should match");
 			test.strictEqual(sampleEntry.getProperty("username"), "buttercup", "Sample username should match");
 			test.strictEqual(sampleEntry.getProperty("password"), "test password", "Sample password should match");
