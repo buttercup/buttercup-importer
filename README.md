@@ -7,11 +7,7 @@ Import archives from other password managers.
 This archive importer coverts password archives from other formats to the Buttercup archive format (BCUP).
 
 ### Supported platforms
-The importer requires NodeJS:
-
- * 0.12
- * 4.x
- * 5.x
+The importer requires NodeJS **v4** or above.
 
 ### Supported password archive formats
 
