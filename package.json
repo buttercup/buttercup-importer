@@ -20,9 +20,9 @@
   "author": "Perry Mitchell <perry@perrymitchell.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/perry-mitchell/buttercup-importer/issues"
+    "url": "https://github.com/buttercup-pw/buttercup-importer/issues"
   },
-  "homepage": "https://github.com/perry-mitchell/buttercup-importer#readme",
+  "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
     "buttercup": "~0.32.0",
     "kdbxweb": "~0.2.1",
