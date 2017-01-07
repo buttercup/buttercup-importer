@@ -28,3 +28,4 @@ node_modules
 
 *.bcup
 source/test.js
+build

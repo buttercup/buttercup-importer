@@ -1,31 +1,32 @@
+"use strict";
+
 var ButtercupImporter = require(__dirname + "/../../source/lib.js"),
 	Buttercup = require("buttercup"),
-	ButtercupArchive = Buttercup.Archive,
-	ManagedGroup = Buttercup.ManagedGroup;
+	Archive = Buttercup.Archive,
+	Group = Buttercup.Group;
 
 module.exports = {
 
 	setUp: function(cb) {
 		this.exampleArchive = __dirname + "/../resources/test-archive.kdbx";
-		this.exampleDestination = __dirname + "/../resources/test-archive.bcup";
 		this.examplePassword = "passw0rd";
-		(cb)();
+		cb();
 	},
 
 	export: {
 
 		testCreatesArchive: function(test) {
 			ButtercupImporter
-				.importFromKDBX(this.exampleArchive, this.examplePassword, this.exampleDestination)
+				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
-					test.ok(archive instanceof ButtercupArchive, "Archive should be a Buttercup archive instance");
+					test.ok(archive instanceof Archive, "Archive should be a Buttercup archive instance");
 					test.done();
 				});
 		},
 
 		testContainsGroups: function(test) {
 			ButtercupImporter
-				.importFromKDBX(this.exampleArchive, this.examplePassword, this.exampleDestination)
+				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
 					var rootGroup = archive.getGroups()[0];
 					test.strictEqual(rootGroup.getTitle(), "Testing", "Root group should be called 'Testing'");
@@ -36,16 +37,14 @@ module.exports = {
 							generalGroup = child;
 						}
 					});
-					test.ok(generalGroup instanceof ManagedGroup, "Archive should contain General group");
+					test.ok(generalGroup instanceof Group, "Archive should contain General group");
 					test.done();
-				}).catch(function(err) {
-					console.error("Failed: " + err.message);
 				});
 		},
 
 		testContainsEntry: function(test) {
 			ButtercupImporter
-				.importFromKDBX(this.exampleArchive, this.examplePassword, this.exampleDestination)
+				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
 					var children = archive.getGroups()[0].getGroups(),
 						generalGroup;
