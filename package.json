@@ -2,7 +2,7 @@
   "name": "buttercup-importer",
   "version": "0.4.0",
   "description": "Buttercup archive importer for other password manager archives",
-  "main": "source/lib.js",
+  "main": "source/index.js",
   "scripts": {
     "test": "nodeunit tests/cli",
     "test:ci": "nodeunit tests/cli --reporter junit --output build"

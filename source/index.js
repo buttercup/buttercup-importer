@@ -1,6 +1,6 @@
 "use strict";
 
-var KDBXImporter = require("./do_you_even/KDBXImporter.js");
+var KDBXImporter = require("./importers/KDBXImporter.js");
 
 module.exports = {
 

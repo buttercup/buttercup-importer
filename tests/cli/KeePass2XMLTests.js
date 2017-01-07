@@ -1,7 +1,9 @@
 "use strict";
 
+var path = require("path");
+
 var Buttercup = require("buttercup"),
-	KeePass2Importer = require(__dirname + "/../../source/do_you_even/KeePass2Importer.js"),
+	KeePass2Importer = require("../../source/importers/KeePass2Importer.js"),
 	Group = Buttercup.Group,
 	Entry = Buttercup.Entry;
 
@@ -9,7 +11,7 @@ module.exports = {
 
 	setUp: function(cb) {
 		var _this = this;
-		KeePass2Importer.loadFromFile(__dirname + "/../resources/test.kdbx.xml")
+		KeePass2Importer.loadFromFile(path.resolve(__dirname, "../resources/test.kdbx.xml"))
 			.then(function(importer) {
 				return importer.exportArchive();
 			})

@@ -1,6 +1,8 @@
 "use strict";
 
-var ButtercupImporter = require(__dirname + "/../../source/lib.js"),
+var path = require("path");
+
+var ButtercupImporter = require("../../source/index.js"),
 	Buttercup = require("buttercup"),
 	Archive = Buttercup.Archive,
 	Group = Buttercup.Group;
@@ -8,7 +10,7 @@ var ButtercupImporter = require(__dirname + "/../../source/lib.js"),
 module.exports = {
 
 	setUp: function(cb) {
-		this.exampleArchive = __dirname + "/../resources/test-archive.kdbx";
+		this.exampleArchive = path.resolve(__dirname, "../resources/test-archive.kdbx");
 		this.examplePassword = "passw0rd";
 		cb();
 	},
