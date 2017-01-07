@@ -5,7 +5,7 @@ var KDBXImporter = require("./do_you_even/KDBXImporter.js");
 module.exports = {
 
 	importFrom1PIF: function(pifPath, password, destination) {
-		
+		throw new Error("Not implemented");
 	},
 
 	/**

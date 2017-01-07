@@ -1,2 +1,0 @@
-{"uuid":"9EDD93A1050C42E1811191A55FABD7D0","updatedAt":1450122909,"securityLevel":"SL5","contentsHash":"5927e9e8","title":"Test","secureContents":{"fields":[{"value":"user","name":"username","type":"T","designation":"username"},{"value":"pass","name":"password","type":"P","designation":"password"}]},"txTimestamp":1450122909,"createdAt":1450122866,"typeName":"webforms.WebForm"}
-***5642bee8-a5ff-11dc-8314-0800200c9a66***
