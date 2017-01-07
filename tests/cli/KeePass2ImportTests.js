@@ -9,16 +9,15 @@ module.exports = {
 
 	setUp: function(cb) {
 		this.exampleArchive = __dirname + "/../resources/test-archive.kdbx";
-		this.exampleDestination = __dirname + "/../resources/test-archive.bcup";
 		this.examplePassword = "passw0rd";
-		(cb)();
+		cb();
 	},
 
 	export: {
 
 		testCreatesArchive: function(test) {
 			ButtercupImporter
-				.importFromKDBX(this.exampleArchive, this.examplePassword, this.exampleDestination)
+				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
 					test.ok(archive instanceof Archive, "Archive should be a Buttercup archive instance");
 					test.done();
@@ -27,7 +26,7 @@ module.exports = {
 
 		testContainsGroups: function(test) {
 			ButtercupImporter
-				.importFromKDBX(this.exampleArchive, this.examplePassword, this.exampleDestination)
+				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
 					var rootGroup = archive.getGroups()[0];
 					test.strictEqual(rootGroup.getTitle(), "Testing", "Root group should be called 'Testing'");
@@ -45,7 +44,7 @@ module.exports = {
 
 		testContainsEntry: function(test) {
 			ButtercupImporter
-				.importFromKDBX(this.exampleArchive, this.examplePassword, this.exampleDestination)
+				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
 					var children = archive.getGroups()[0].getGroups(),
 						generalGroup;
