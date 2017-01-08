@@ -17,7 +17,7 @@ module.exports = {
 
 	export: {
 
-		testCreatesArchive: function(test) {
+		createsArchive: function(test) {
 			ButtercupImporter
 				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
@@ -26,7 +26,7 @@ module.exports = {
 				});
 		},
 
-		testContainsGroups: function(test) {
+		containsGroups: function(test) {
 			ButtercupImporter
 				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
@@ -44,7 +44,7 @@ module.exports = {
 				});
 		},
 
-		testContainsEntry: function(test) {
+		containsEntry: function(test) {
 			ButtercupImporter
 				.importFromKDBX(this.exampleArchive, this.examplePassword)
 				.then(function(archive) {
@@ -63,6 +63,20 @@ module.exports = {
 				}).catch(function(err) {
 					console.error("Failed: " + err.message);
 				});
+		},
+
+		throwsForIncorrectPassword: function(test) {
+			ButtercupImporter.importFromKDBX(this.exampleArchive, "wrong password")
+				.then(
+					function() {
+						throw new Error("Should not be here: error should have thrown");
+					},
+					function(err) {
+						test.strictEqual(err.name, "KdbxError", "Error name should match");
+						test.strictEqual(err.code, "InvalidKey", "Error code should match");
+						test.done();
+					}
+				);
 		}
 
 	}

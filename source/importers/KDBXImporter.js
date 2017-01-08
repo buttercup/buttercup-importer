@@ -30,13 +30,19 @@ KDBXImporter.prototype.export = function(password) {
 		});
 	}))
 	.then(function(kdbxRaw) {
-		return new Promise(function(resolve) {
+		return new Promise(function(resolve, reject) {
 			var credentials = new kdbxweb.Credentials(kdbxweb.ProtectedValue.fromString(password));
-			kdbxweb.Kdbx.load(toArrayBuffer(kdbxRaw), credentials, resolve);
+			kdbxweb.Kdbx.load(toArrayBuffer(kdbxRaw), credentials, function(db, err) {
+				if (err) {
+					return reject(err);
+				}
+				return resolve(db);
+			});
 		});
 	})
 	.then(function(db) {
 		return new Promise(function(resolve) {
+			// saveXml throws no error in callback, so just resolve
 			db.saveXml(resolve);
 		});
 	})
