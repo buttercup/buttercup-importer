@@ -1,5 +1,12 @@
 # Buttercup importer changelog
 
+## v0.7.0
+_2017-03-13_
+
+ * Core update to 0.35.0
+   * Fix importing for special characters
+   * Archives created using encoded entry values feature
+
 ## v0.6.1
 _2017-01-07_
 
