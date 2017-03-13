@@ -29,3 +29,7 @@ node_modules
 *.bcup
 source/test.js
 build
+
+.DS_store
+.history
+.vscode
