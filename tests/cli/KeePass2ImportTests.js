@@ -5,7 +5,8 @@ var path = require("path");
 var ButtercupImporter = require("../../source/index.js"),
 	Buttercup = require("buttercup"),
 	Archive = Buttercup.Archive,
-	Group = Buttercup.Group;
+	Group = Buttercup.Group,
+	encodingTools = Buttercup.tools.encoding;
 
 module.exports = {
 
@@ -55,7 +56,7 @@ module.exports = {
 							generalGroup = child;
 						}
 					});
-					var sampleEntry = generalGroup.getEntries()[0];
+					var sampleEntry = generalGroup.findEntriesByProperty("title", /^Test-entry$/)[0];
 					test.strictEqual(sampleEntry.getProperty("title"), "Test-entry", "Title should be correct");
 					test.strictEqual(sampleEntry.getProperty("username"), "buttercup", "Username should be correct");
 					test.strictEqual(sampleEntry.getProperty("password"), "westley", "Password should be correct");

@@ -5,7 +5,8 @@ var path = require("path");
 var Buttercup = require("buttercup"),
 	KeePass2Importer = require("../../source/importers/KeePass2Importer.js"),
 	Group = Buttercup.Group,
-	Entry = Buttercup.Entry;
+	Entry = Buttercup.Entry,
+	encodingTools = Buttercup.tools.encoding;
 
 module.exports = {
 
@@ -32,14 +33,18 @@ module.exports = {
 
 		testContainsNotes: function(test) {
 			test.ok(
-				this.history.indexOf("Hello. My name is Inigo Montoya. You killed my father. Prepare to die.") > 0,
+				this.history.indexOf(
+					encodingTools.encodeStringValue(
+						"Hello. My name is Inigo Montoya. You killed my father. Prepare to die."
+					)
+				) > 0,
 				"History should contain notes"
 			);
 			test.done();
 		},
 
 		testContainsPassword: function(test) {
-			test.ok(this.history.indexOf("test password") > 0, "History should contain password");
+			test.ok(this.history.indexOf(encodingTools.encodeStringValue("test password")) > 0, "History should contain password");
 			test.done();
 		}
 
