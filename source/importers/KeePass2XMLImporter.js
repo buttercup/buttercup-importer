@@ -1,13 +1,14 @@
 "use strict";
 
-var fs = require("fs"),
-	xml2js = require('xml2js');
+const fs = require("fs");
+const xml2js = require("xml2js");
+const Buttercup = require("buttercup");
 
-var Buttercup = require("buttercup");
-
-var Archive = Buttercup.Archive,
-	ManagedGroup = Buttercup.ManagedGroup,
-	ManagedEntry = Buttercup.ManagedEntry;
+const {
+	Archive,
+	ManagedGroup,
+	ManagedEntry
+} = Buttercup;
 
 // --- helpers
 
@@ -55,20 +56,19 @@ function processGroup(group, archive, currentGroup) {
 
 // --- class
 
-var KeePass2Importer = function(xmlContent) {
+var KeePass2XMLImporter = function(xmlContent) {
 	this._content = xmlContent;
 };
 
-KeePass2Importer.prototype.exportArchive = function() {
+KeePass2XMLImporter.prototype.exportArchive = function() {
 	var parser = new xml2js.Parser(),
 		xmlContent = this._content;
 	return (new Promise(function(resolve, reject) {
 		parser.parseString(xmlContent, function (err, result) {
 			if (err) {
-				(reject)(err);
-			} else {
-				(resolve)(result);
+				return reject(err);
 			}
+			resolve(result);
 		});
 	})).then(function(keepassJS) {
 		var archive = new Archive(),
@@ -88,16 +88,15 @@ KeePass2Importer.prototype.exportArchive = function() {
 	});
 };
 
-KeePass2Importer.loadFromFile = function(filename) {
+KeePass2XMLImporter.loadFromFile = function(filename) {
 	return new Promise(function(resolve, reject) {
 		fs.readFile(filename, function(err, data) {
 			if (err) {
-				(reject)(err);
-			} else {
-				(resolve)(new KeePass2Importer(data));
+				return reject(err);
 			}
+			resolve(new KeePass2XMLImporter(data));
 		});
 	});
 };
 
-module.exports = KeePass2Importer;
+module.exports = KeePass2XMLImporter;
