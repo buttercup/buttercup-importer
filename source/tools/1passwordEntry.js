@@ -4,6 +4,11 @@ const ATTR_1PASS_TYPE = "ONEPASS_IMPORT_TYPE";
 const ENTRY_NORMAL = /^webforms\.WebForm/i;
 const ENTRY_CREDITCARD = /^wallet\.financial\.CreditCard/i;
 
+/**
+ * Convert a 1password raw item to an entry object
+ * @param {Object} rawItem Extracted 1password item
+ * @returns {Object|null} The converted entry object or null if invalid
+ */
 function onePasswordItemToEntry(rawItem) {
     const entry = {
         groupID: rawItem.folderUuid || null,

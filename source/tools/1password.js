@@ -5,6 +5,11 @@ const { onePasswordItemToEntry } = require("./1passwordEntry.js");
 const ONEPASS_FOLDER = /^system\.folder/i;
 const ONEPASS_SPACER = /^\*\*\*.+/;
 
+/**
+ * Convert raw 1pif text to a JSON tree
+ * @param {String} onePifRaw Exported 1PIF content
+ * @returns {Object} Raw archive structure
+ */
 function convert1pifToJSON(onePifRaw) {
     const items = onePifRaw
         .split(/\r\n|\n/)
@@ -37,6 +42,11 @@ function convert1pifToJSON(onePifRaw) {
     return mergeItemsToTree(groups, entries);
 }
 
+/**
+ * Create a new group skeleton
+ * @param {String|null} id The 1password group UUID
+ * @returns {Object} A group object
+ */
 function createGroupSkeleton(id) {
     return {
         id,
@@ -47,6 +57,12 @@ function createGroupSkeleton(id) {
     };
 }
 
+/**
+ * Merge extracted groups and entries to form a tree
+ * @param {Object} groups Groups key=>value list
+ * @param {Object} entries Entries key=>value list
+ * @param {Object=} currentGroup The current object being worked on
+ */
 function mergeItemsToTree(groups, entries, currentGroup) {
     const thisGroup = currentGroup || createGroupSkeleton(null);
     if (!currentGroup) {

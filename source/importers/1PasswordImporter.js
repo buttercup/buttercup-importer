@@ -16,6 +16,11 @@ const {
 } = Buttercup;
 const readFile = pify(fs.readFile);
 
+/**
+ * Map a 1PIF JSON tree back to an archive
+ * @param {Archive|Group} parentArchiveItem A Buttercup Archive or Group instance
+ * @param {Object} treeLevel A JSON group
+ */
 function mapTreeLevelToArchive(parentArchiveItem, treeLevel) {
 	const group = parentArchiveItem.createGroup(treeLevel.title);
 	treeLevel.entries.forEach(function(rawEntry) {
@@ -38,7 +43,12 @@ function mapTreeLevelToArchive(parentArchiveItem, treeLevel) {
 	});
 }
 
-function normalise1pifFile(filePath) {
+/**
+ * Locate the true 1pif file in a path (may be directory)
+ * @param {String} filePath Path to the directory or 1pif file
+ * @returns {String} Resolve file path
+ */
+function resolve1pifFile(filePath) {
 	if (isDir(filePath)) {
 		return path.resolve(filePath, "./data.1pif");
 	}
@@ -47,14 +57,27 @@ function normalise1pifFile(filePath) {
 
 class OnePasswordImporter {
 
+	/**
+	 * Constructor for the importer
+	 * @param {String} onePIFPath The 1pif file path
+	 */
 	constructor(onePIFPath) {
-		this._path = normalise1pifFile(onePIFPath);
+		this._path = resolve1pifFile(onePIFPath);
 	}
 
+	/**
+	 * The 1pif file path
+	 * @type {String}
+	 */
 	get path() {
 		return this._path;
 	}
 
+	/**
+	 * Export the 1pif data to a Buttercup Archive instance
+	 * @returns {Promise.<Archive>} A promise that resolves with a Buttercup
+	 * 	Archive instance
+	 */
 	export() {
 		return readFile(this.path, "utf8")
 			.then(contents => convert1pifToJSON(contents))
