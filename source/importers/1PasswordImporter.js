@@ -1,9 +1,11 @@
-(function(module) {
+"use strict";
 
-	"use strict";
+class OnePasswordImporter {
 
-	var Importer = function(filename, destination) {
+	constructor(filename) {
+		this._filename = filename;
+	}
 
-	};
+}
 
-})(module);
+module.exports = OnePasswordImporter;
