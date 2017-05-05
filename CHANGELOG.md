@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.8.0
+_2017-05-05_
+
+ * Added support for exported 1password archives (1pif)
+
 ## v0.7.0
 _2017-03-13_
 
