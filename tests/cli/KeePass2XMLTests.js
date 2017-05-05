@@ -3,7 +3,7 @@
 var path = require("path");
 
 var Buttercup = require("buttercup"),
-	KeePass2Importer = require("../../source/importers/KeePass2Importer.js"),
+	KeePass2XMLImporter = require("../../source/importers/KeePass2XMLImporter.js"),
 	Group = Buttercup.Group,
 	Entry = Buttercup.Entry,
 	encodingTools = Buttercup.tools.encoding;
@@ -12,7 +12,7 @@ module.exports = {
 
 	setUp: function(cb) {
 		var _this = this;
-		KeePass2Importer.loadFromFile(path.resolve(__dirname, "../resources/test.kdbx.xml"))
+		KeePass2XMLImporter.loadFromFile(path.resolve(__dirname, "../resources/test.kdbx.xml"))
 			.then(function(importer) {
 				return importer.exportArchive();
 			})

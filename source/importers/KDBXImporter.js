@@ -4,7 +4,7 @@ var fs = require("fs"),
 	kdbxweb = require("kdbxweb");
 
 var Buttercup = require("buttercup"),
-	KeePass2Importer = require("./KeePass2Importer.js");
+	KeePass2XMLImporter = require("./KeePass2XMLImporter.js");
 
 function toArrayBuffer(buffer) {
 	var ab = new ArrayBuffer(buffer.length);
@@ -37,7 +37,7 @@ KDBXImporter.prototype.export = function(password) {
 		return db.saveXml();
 	})
 	.then(function(xmlString) {
-		var xmlImporter = new KeePass2Importer(xmlString);
+		var xmlImporter = new KeePass2XMLImporter(xmlString);
 		return xmlImporter.exportArchive();
 	});
 }

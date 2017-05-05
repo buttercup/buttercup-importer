@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
-    "buttercup": "~0.35.0",
+    "buttercup": "~0.38.1",
+    "is-dir": "~1.0.0",
     "kdbxweb": "~1.0.1",
+    "pify": "~2.3.0",
     "xml2js": "~0.4.13"
   },
   "devDependencies": {
