@@ -35,7 +35,7 @@ function onePasswordItemToEntry(rawItem) {
         entry.meta.type = rawItem.secureContents.type;
         entry.meta.cardholder = rawItem.secureContents.cardholder;
         entry.meta["expiry-year"] = rawItem.secureContents.expiry_yy;
-        entry.meta["expiry_month"] = rawItem.secureContents.expiry_mm;
+        entry.meta["expiry-month"] = rawItem.secureContents.expiry_mm;
         entry.meta["validfrom-year"] = rawItem.secureContents.validFrom_yy;
         entry.meta["validfrom-month"] = rawItem.secureContents.validFrom_mm;
     } else {
