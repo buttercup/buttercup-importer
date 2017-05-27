@@ -35,6 +35,14 @@ module.exports = {
         test.ok(entries[0].properties.username === "user@foo.com", "properties.username is set correctly");
         test.done();
       });
+    },
+    doesntImportEmptyNotes: test => {
+      importFromLastPass(lpcsvPath).then(archive => {
+        const entries = archive.toObject().groups.map(g => g.entries).reduce((a,b) => a.concat(b));
+        test.ok(entries[1].meta.Notes === undefined);
+        test.ok(entries[2].meta.Notes === undefined);
+        test.done();
+      });
     }
   }
 };

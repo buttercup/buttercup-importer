@@ -23,12 +23,14 @@ const importFromLastPass = lpcsvPath => {
 			csvjson.toObject(contents).forEach(lastpassItem => {
 				const groupName = lastpassItem.grouping || defaultGroup;
 				const group = groups[groupName] || (groups[groupName] = archive.createGroup(groupName));
-				group
+				const entry = group
 					.createEntry(lastpassItem.name)
 					.setProperty("username", lastpassItem.username)
 					.setProperty("password", lastpassItem.password)
-					.setMeta("URL", lastpassItem.url)
-					.setMeta("Notes", lastpassItem.extra);
+					.setMeta("URL", lastpassItem.url);
+				if(lastpassItem.extra) {
+					entry.setMeta("Notes", lastpassItem.extra);
+				}
 			});
 
 			return archive;
