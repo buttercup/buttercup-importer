@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.9.0
+_2017-05-27_
+
+ * Added support for exported Lastpass archives (csv)
+
 ## v0.8.0
 _2017-05-05_
 

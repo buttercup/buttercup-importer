@@ -1,6 +1,6 @@
 {
   "name": "buttercup-importer",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Buttercup archive importer for other password manager archives",
   "main": "source/index.js",
   "scripts": {
@@ -15,6 +15,8 @@
     "buttercup",
     "keepass",
     "import",
+    "lastpass",
+    "1password",
     "password"
   ],
   "author": "Perry Mitchell <perry@perrymitchell.net>",
