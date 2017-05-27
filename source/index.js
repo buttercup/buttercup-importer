@@ -2,6 +2,7 @@
 
 const KDBXImporter = require("./importers/KDBXImporter.js");
 const OnePasswordImporter = require("./importers/1PasswordImporter.js");
+const importFromLastPass = require("./importers/LastPassImporter.js");
 
 module.exports = {
 
@@ -24,6 +25,13 @@ module.exports = {
 	importFromKDBX: function(kdbxFile, password) {
 		var importer = new KDBXImporter(kdbxFile);
 		return importer.export(password);
-	}
+	},
+
+	/**
+	 * Import an exported LastPass CSV archive
+	 * @param {String} lpcsvPath The path to the LastPass CSV file
+	 * @returns {Promise.<Archive>} A promise that resolves with the imported archive
+	 */
+	importFromLastPass
 
 };
