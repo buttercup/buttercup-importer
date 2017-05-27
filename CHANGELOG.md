@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.9.1
+_2017-05-27_
+
+ * Fix Lastpass empty/non-existent notes creating blank meta values
+
 ## v0.9.0
 _2017-05-27_
 
