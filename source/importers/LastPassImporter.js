@@ -5,7 +5,7 @@ const fs = require("fs");
 
 const pify = require("pify");
 const { Archive } = require("buttercup");
-const csvjson = require("csvjson");
+const csvparse = require("csv-parse/lib/sync");
 
 const defaultGroup = "General";
 
@@ -20,7 +20,7 @@ const importFromLastPass = lpcsvPath => {
 	return pify(fs.readFile)(lpcsvPath, "utf8")
 		.then(contents => {
 			const archive = new Archive();
-			csvjson.toObject(contents).forEach(lastpassItem => {
+			csvparse(contents, {columns: true}).forEach(lastpassItem => {
 				const groupName = lastpassItem.grouping || defaultGroup;
 				const group = groups[groupName] || (groups[groupName] = archive.createGroup(groupName));
 				const entry = group
