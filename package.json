@@ -1,6 +1,6 @@
 {
   "name": "buttercup-importer",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Buttercup archive importer for other password manager archives",
   "main": "source/index.js",
   "scripts": {

@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.9.2
+_2017-06-18_
+
+ * Fix Lastpass multiline values (CSV importing)
+
 ## v0.9.1
 _2017-05-27_
 
