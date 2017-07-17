@@ -27,7 +27,7 @@ module.exports = {
     containsEntries: test => {
       importFromLastPass(lpcsvPath).then(archive => {
         const entries = archive.toObject().groups.map(g => g.entries).reduce((a,b) => a.concat(b));
-        test.ok(entries.length === 3, "There should be three entries");
+        test.ok(entries.length === 4, "There should be four entries");
         test.ok(entries[0].meta.URL === "https://foo.com", "meta.URL is set correctly");
         test.ok(entries[0].meta.Notes === "This is extra data", "meta.Notes is set correctly");
         test.ok(entries[0].properties.password === "thisisasecret", "properties.password is set correctly");
@@ -41,6 +41,13 @@ module.exports = {
         const entries = archive.toObject().groups.map(g => g.entries).reduce((a,b) => a.concat(b));
         test.ok(entries[1].meta.Notes === undefined);
         test.ok(entries[2].meta.Notes === undefined);
+        test.done();
+      });
+    },
+    importsMultiLineNotes: test => {
+      importFromLastPass(lpcsvPath).then(archive => {
+        const entries = archive.toObject().groups.map(g => g.entries).reduce((a,b) => a.concat(b));
+        test.ok(entries[3].meta.Notes === "This is a\nmultiline string");
         test.done();
       });
     }

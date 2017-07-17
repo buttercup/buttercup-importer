@@ -2,3 +2,5 @@ url,username,password,extra,name,grouping,fav
 https://foo.com,user@foo.com,thisisasecret,This is extra data,foo.com,FooBar,0
 https://bar.com,user@bar.com,thisisasecret,,bar.com,FooBar,0
 https://fizz.com,user@fizz.com,thisisasecret,,fizz.com,,0
+https://baz.com,user@baz.com,thisisasecret,"This is a
+multiline string",baz.com,,0
