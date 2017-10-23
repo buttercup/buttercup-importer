@@ -14,10 +14,7 @@ function convert1pifToJSON(onePifRaw) {
     const items = onePifRaw
         .split(/\r\n|\n/)
         .map(line => line.trim())
-        .filter(line =>
-            line.length > 0 &&
-            ONEPASS_SPACER.test(line) !== true
-        )
+        .filter(line => line.length > 0 && ONEPASS_SPACER.test(line) !== true)
         .map(line => JSON.parse(line));
     const groups = {};
     const entries = {};
@@ -69,16 +66,16 @@ function mergeItemsToTree(groups, entries, currentGroup) {
         thisGroup.title = "Imported 1password archive";
     }
     Object.values(entries).forEach(function(entry) {
-        if ((!entry.groupID && thisGroup.id === null) ||
-            (entry.groupID && entry.groupID === thisGroup.id)) {
+        if (
+            (!entry.groupID && thisGroup.id === null) ||
+            (entry.groupID && entry.groupID === thisGroup.id)
+        ) {
             thisGroup.entries.push(entry);
         }
     });
     Object.values(groups).forEach(function(group) {
         if (group.id && group.parentID === thisGroup.id) {
-            thisGroup.groups.push(
-                mergeItemsToTree(groups, entries, group)
-            );
+            thisGroup.groups.push(mergeItemsToTree(groups, entries, group));
         }
     });
     return thisGroup;
