@@ -20,7 +20,7 @@ function onePasswordItemToEntry(rawItem) {
             [ATTR_1PASS_TYPE]: rawItem.typeName
         }
     };
-    if (ENTRY_NORMAL.test(rawItem.typeName)) {
+    if (testNormalEntryAndFieldsExist(rawItem)) {
         rawItem.secureContents.fields.forEach(function(field) {
             if (field.designation === "username") {
                 entry.username = field.value;
@@ -42,6 +42,13 @@ function onePasswordItemToEntry(rawItem) {
         return null;
     }
     return entry;
+}
+
+function testNormalEntryAndFieldsExist(rawItem) {
+    return (
+        ENTRY_NORMAL.test(rawItem.typeName) &&
+        typeof rawItem.secureContents.fields !== "undefined"
+    );
 }
 
 module.exports = {
