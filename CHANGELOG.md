@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.9.3
+_2018-02-26_
+
+ * Fix 1Password import of empty items (unset fields)
+
 ## v0.9.2
 _2017-06-18_
 
