@@ -13,7 +13,7 @@ The importer requires Node **6** or higher.
 
 * ![KDBX (keepass)](https://img.shields.io/badge/KDBX-Full-brightgreen.svg) KeePass 2 archives
 * ![Lastpass](https://img.shields.io/badge/CSV-Full-brightgreen.svg) Lastpass archives
-* ![1Password](https://img.shields.io/badge/1PIF-Basic-brightgreen.svg) 1Password PIF files (exported)
+* ![1Password](https://img.shields.io/badge/1PIF-Most-brightgreen.svg) 1Password PIF files (exported)
 * ![CSV](https://img.shields.io/badge/CSV-None-red.svg) CSV files (general)
 
 ### Importing from 3rd-party managers
@@ -24,7 +24,15 @@ KeePass archives for KeePass 2 can be opened using the `importFromKDBX` command.
 #### 1Password
 When your archive is open, choose to export all entries to 1PIF format. Provide the path and destination to the `importFrom1PIF` function.
 
-Imported 1Password archives may lose some information regarding their type (eg. Credit cards).
+Imported 1Password archives may lose some information regarding their type (eg. Credit cards). The 1Password Importer supports importing the following types:
+
+* Web Forms
+* Passwords
+* Credit Cards
+* Software Licenses
+* Emails
+* SSNs
+* Router Passwords
 
 #### LastPass
 Lastpass credentials can be exported as CSV files, which can be imported using Buttercup importer.
