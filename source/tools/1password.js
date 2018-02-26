@@ -19,6 +19,14 @@ function convert1pifToJSON(onePifRaw) {
     const groups = {};
     const entries = {};
     // let defaultGroup = null;
+
+    const groupNames = items
+        .map(item => item.typeName)
+        .filter(typeName => !ONEPASS_FOLDER.test(typeName));
+    const groupMap = [...new Set(groupNames)].forEach(groupName => {
+        groups[groupName] = createGroupSkeleton(groupName, groupName);
+    });
+
     items.forEach(function(item) {
         if (ONEPASS_FOLDER.test(item.typeName)) {
             const group = createGroupSkeleton(item.uuid);
@@ -44,10 +52,10 @@ function convert1pifToJSON(onePifRaw) {
  * @param {String|null} id The 1password group UUID
  * @returns {Object} A group object
  */
-function createGroupSkeleton(id) {
+function createGroupSkeleton(id, title = "Untitled Group") {
     return {
         id,
-        title: "Untitled group",
+        title,
         parentID: null,
         entries: [],
         groups: []
