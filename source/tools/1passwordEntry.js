@@ -47,7 +47,7 @@ function onePasswordItemToEntry(rawItem) {
 function testNormalEntryAndFieldsExist(rawItem) {
     return (
         ENTRY_NORMAL.test(rawItem.typeName) &&
-        typeof rawItem.secureContents.fields !== "undefined"
+        Array.isArray(rawItem.secureContents.fields)
     );
 }
 
