@@ -6,6 +6,7 @@
   "scripts": {
     "format": "prettier --write '{source,tests}/**/*.js'",
     "precommit": "lint-staged",
+    "pub": "np",
     "test": "nodeunit tests/cli",
     "test:ci": "nodeunit tests/cli --reporter junit --output build"
   },
@@ -45,6 +46,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^4.3.0",
     "nodeunit": "~0.10.2",
+    "np": "~2.20.1",
     "prettier": "^1.7.4"
   }
 }
