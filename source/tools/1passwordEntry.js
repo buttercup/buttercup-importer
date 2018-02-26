@@ -3,6 +3,9 @@
 const ATTR_1PASS_TYPE = "ONEPASS_IMPORT_TYPE";
 const ENTRY_NORMAL = /^webforms\.WebForm/i;
 const ENTRY_CREDITCARD = /^wallet\.financial\.CreditCard/i;
+const ENTRY_PASSWORD = /^passwords\.Password/i;
+const ENTRY_LICENSE = /^wallet\.computer\.License/i;
+const ENTRY_EMAIL_V2 = /^wallet\.onlineservices\.Email\.v2/i;
 
 /**
  * Convert a 1password raw item to an entry object
@@ -11,7 +14,7 @@ const ENTRY_CREDITCARD = /^wallet\.financial\.CreditCard/i;
  */
 function onePasswordItemToEntry(rawItem) {
     const entry = {
-        groupID: rawItem.folderUuid || null,
+        groupID: rawItem.folderUuid || rawItem.typeName || null,
         title: rawItem.title || "Untitled entry",
         username: "",
         password: "",
@@ -20,6 +23,9 @@ function onePasswordItemToEntry(rawItem) {
             [ATTR_1PASS_TYPE]: rawItem.typeName
         }
     };
+    if (rawItem.location) {
+        entry.meta.url = rawItem.location;
+    }
     if (testNormalEntryAndFieldsExist(rawItem)) {
         rawItem.secureContents.fields.forEach(function(field) {
             if (field.designation === "username") {
@@ -38,6 +44,23 @@ function onePasswordItemToEntry(rawItem) {
         entry.meta["expiry-month"] = rawItem.secureContents.expiry_mm;
         entry.meta["validfrom-year"] = rawItem.secureContents.validFrom_yy;
         entry.meta["validfrom-month"] = rawItem.secureContents.validFrom_mm;
+    } else if (ENTRY_PASSWORD.test(rawItem.typeName)) {
+        entry.password = rawItem.secureContents.password;
+    } else if (ENTRY_LICENSE.test(rawItem.typeName)) {
+        if (!rawItem.secureContents.reg_code) {
+            return null;
+        }
+        entry.password = rawItem.secureContents.reg_code;
+        if (rawItem.secureContents.reg_email) {
+            entry.username = rawItem.secureContents.reg_email;
+        }
+        if (rawItem.secureContents.reg_name) {
+            entry.meta["Name"] = rawItem.secureContents.reg_name;
+        }
+    } else if (ENTRY_EMAIL_V2.test(rawItem.typeName)) {
+        entry.username = rawItem.secureContents.pop_username;
+        entry.password = rawItem.secureContents.pop_password;
+        entry.meta["POP Server"] = rawItem.secureContents.pop_server;
     } else {
         return null;
     }
