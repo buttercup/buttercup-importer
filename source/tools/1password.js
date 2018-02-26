@@ -23,7 +23,7 @@ function convert1pifToJSON(onePifRaw) {
     const groupNames = items
         .map(item => item.typeName)
         .filter(typeName => !ONEPASS_FOLDER.test(typeName));
-    const groupMap = [...new Set(groupNames)].forEach(groupName => {
+    [...new Set(groupNames)].forEach(groupName => {
         groups[groupName] = createGroupSkeleton(groupName, groupName);
     });
 
