@@ -57,7 +57,7 @@ function onePasswordItemToEntry(rawItem) {
             entry.username = rawItem.secureContents.reg_email;
         }
         if (rawItem.secureContents.reg_name) {
-            entry.meta["Name"] = rawItem.secureContents.reg_name;
+            entry.meta.Name = rawItem.secureContents.reg_name;
         }
     } else if (ENTRY_EMAIL_V2.test(rawItem.typeName)) {
         entry.username = rawItem.secureContents.pop_username;
@@ -66,15 +66,15 @@ function onePasswordItemToEntry(rawItem) {
     } else if (ENTRY_SSN.test(rawItem.typeName)) {
         entry.password = rawItem.secureContents.number;
         if (rawItem.secureContents.name) {
-            entry.meta["Name"] = rawItem.secureContents.name;
+            entry.meta.Name = rawItem.secureContents.name;
         }
     } else if (ENTRY_ROUTER.test(rawItem)) {
-        entry.username = entry.meta["Network"] =
+        entry.username = entry.meta.Network =
             rawItem.secureContents.network_name ||
             rawItem.secureContents.network_name;
         entry.password = rawItem.secureContents.password;
-        entry.meta["Security"] = rawItem.secureContents.wireless_security;
-        entry.meta["Server"] = rawItem.secureContents.server;
+        entry.meta.Security = rawItem.secureContents.wireless_security;
+        entry.meta.Server = rawItem.secureContents.server;
     } else {
         return null;
     }
