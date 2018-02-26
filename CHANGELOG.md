@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.10.0
+_2018-02-26_
+
+ * Update all dependencies
+
 ## v0.9.3
 _2018-02-26_
 
