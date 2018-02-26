@@ -6,6 +6,8 @@ const ENTRY_CREDITCARD = /^wallet\.financial\.CreditCard/i;
 const ENTRY_PASSWORD = /^passwords\.Password/i;
 const ENTRY_LICENSE = /^wallet\.computer\.License/i;
 const ENTRY_EMAIL_V2 = /^wallet\.onlineservices\.Email\.v2/i;
+const ENTRY_SSN = /^wallet\.government\.SsnUS/i;
+const ENTRY_ROUTER = /^wallet\.computer\.Router/i;
 
 /**
  * Convert a 1password raw item to an entry object
@@ -61,6 +63,18 @@ function onePasswordItemToEntry(rawItem) {
         entry.username = rawItem.secureContents.pop_username;
         entry.password = rawItem.secureContents.pop_password;
         entry.meta["POP Server"] = rawItem.secureContents.pop_server;
+    } else if (ENTRY_SSN.test(rawItem.typeName)) {
+        entry.password = rawItem.secureContents.number;
+        if (rawItem.secureContents.name) {
+            entry.meta["Name"] = rawItem.secureContents.name;
+        }
+    } else if (ENTRY_ROUTER.test(rawItem)) {
+        entry.username = entry.meta["Network"] =
+            rawItem.secureContents.network_name ||
+            rawItem.secureContents.network_name;
+        entry.password = rawItem.secureContents.password;
+        entry.meta["Security"] = rawItem.secureContents.wireless_security;
+        entry.meta["Server"] = rawItem.secureContents.server;
     } else {
         return null;
     }
