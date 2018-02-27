@@ -53,26 +53,26 @@ function resolve1pifFile(filePath) {
 
 class OnePasswordImporter {
     /**
-	 * Constructor for the importer
-	 * @param {String} onePIFPath The 1pif file path
-	 */
+     * Constructor for the importer
+     * @param {String} onePIFPath The 1pif file path
+     */
     constructor(onePIFPath) {
         this._path = resolve1pifFile(onePIFPath);
     }
 
     /**
-	 * The 1pif file path
-	 * @type {String}
-	 */
+     * The 1pif file path
+     * @type {String}
+     */
     get path() {
         return this._path;
     }
 
     /**
-	 * Export the 1pif data to a Buttercup Archive instance
-	 * @returns {Promise.<Archive>} A promise that resolves with a Buttercup
-	 * 	Archive instance
-	 */
+     * Export the 1pif data to a Buttercup Archive instance
+     * @returns {Promise.<Archive>} A promise that resolves with a Buttercup
+     * 	Archive instance
+     */
     export() {
         return readFile(this.path, "utf8")
             .then(contents => convert1pifToJSON(contents))
