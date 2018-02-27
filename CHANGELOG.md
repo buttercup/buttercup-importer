@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.11.0
+_2018-02-27_
+
+ * Adds support for more 1password entry types and categories
+
 ## v0.10.0
 _2018-02-26_
 
