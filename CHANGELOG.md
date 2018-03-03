@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.12.0
+_2018-03-03_
+
+ * Upgrade kdbxweb to latest version (1.2.2)
+
 ## v0.11.0
 _2018-02-27_
 
