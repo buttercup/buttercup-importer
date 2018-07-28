@@ -3,7 +3,7 @@
 const KDBXImporter = require("./importers/KDBXImporter.js");
 const OnePasswordImporter = require("./importers/1PasswordImporter.js");
 const importFromLastPass = require("./importers/LastPassImporter.js");
-const importFromButtercup = require("./importers/Buttercup.js");
+const importFromButtercup = require("./importers/ButtercupImporter.js");
 
 module.exports = {
     /**
