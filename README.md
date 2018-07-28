@@ -14,6 +14,7 @@ The importer requires Node **6** or higher.
 * ![KDBX (keepass)](https://img.shields.io/badge/KDBX-Full-brightgreen.svg) KeePass 2 archives
 * ![Lastpass](https://img.shields.io/badge/CSV-Full-brightgreen.svg) Lastpass archives
 * ![1Password](https://img.shields.io/badge/1PIF-Most-brightgreen.svg) 1Password PIF files (exported)
+* ![Buttercup](https://img.shields.io/badge/CSV-Most-brightgreen.svg) Buttercup archives (exported)
 * ![CSV](https://img.shields.io/badge/CSV-None-red.svg) CSV files (general)
 
 ### Importing from 3rd-party managers
@@ -36,3 +37,6 @@ Imported 1Password archives may lose some information regarding their type (eg. 
 
 #### LastPass
 Lastpass credentials can be exported as CSV files, which can be imported using Buttercup importer.
+
+### Importing from Buttercup exports
+Exported Buttercup vaults can be re-imported into a new Vault. Take the exported CSV file and import that in Buttercup Desktop.
