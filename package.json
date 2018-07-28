@@ -42,7 +42,8 @@
     "xml2js": "~0.4.19"
   },
   "devDependencies": {
-    "buttercup": "^2.2.0",
+    "@buttercup/exporter": "~0.1.0",
+    "buttercup": "^2.3.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
     "nodeunit": "~0.10.2",
@@ -50,6 +51,6 @@
     "prettier": "^1.7.4"
   },
   "peerDependencies": {
-    "buttercup": "2.*"
+    "buttercup": ">= 2.3.0"
   }
 }

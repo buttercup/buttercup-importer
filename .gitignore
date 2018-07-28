@@ -29,6 +29,7 @@ node_modules
 *.bcup
 source/test.js
 build
+*.tmp.csv
 
 .DS_store
 .history
