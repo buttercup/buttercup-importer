@@ -1,5 +1,15 @@
 # Buttercup importer changelog
 
+## v0.14.0
+_2018-07-28_
+
+ * Add Buttercup import support (CSV)
+
+## v0.13.0
+_2018-03-15_
+
+ * Move `buttercup` to peerDependency
+
 ## v0.12.0
 _2018-03-03_
 
