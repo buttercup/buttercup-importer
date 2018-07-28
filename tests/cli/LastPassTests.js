@@ -38,11 +38,11 @@ module.exports = {
                     .reduce((a, b) => a.concat(b));
                 test.ok(entries.length === 4, "There should be four entries");
                 test.ok(
-                    entries[0].meta.URL === "https://foo.com",
+                    entries[0].properties.URL === "https://foo.com",
                     "meta.URL is set correctly"
                 );
                 test.ok(
-                    entries[0].meta.Notes === "This is extra data",
+                    entries[0].properties.Notes === "This is extra data",
                     "meta.Notes is set correctly"
                 );
                 test.ok(
@@ -66,8 +66,8 @@ module.exports = {
                     .toObject()
                     .groups.map(g => g.entries)
                     .reduce((a, b) => a.concat(b));
-                test.ok(entries[1].meta.Notes === undefined);
-                test.ok(entries[2].meta.Notes === undefined);
+                test.ok(entries[1].properties.Notes === undefined);
+                test.ok(entries[2].properties.Notes === undefined);
                 test.done();
             });
         },
@@ -78,7 +78,8 @@ module.exports = {
                     .groups.map(g => g.entries)
                     .reduce((a, b) => a.concat(b));
                 test.ok(
-                    entries[3].meta.Notes === "This is a\nmultiline string"
+                    entries[3].properties.Notes ===
+                        "This is a\nmultiline string"
                 );
                 test.done();
             });
