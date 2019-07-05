@@ -45,7 +45,7 @@
     "@buttercup/exporter": "~0.1.0",
     "buttercup": "^2.3.0",
     "husky": "^0.14.3",
-    "lint-staged": "^7.0.0",
+    "lint-staged": "^7.0.5",
     "nodeunit": "~0.10.2",
     "np": "~2.20.1",
     "prettier": "^1.7.4"
