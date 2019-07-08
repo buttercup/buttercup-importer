@@ -37,16 +37,16 @@
     "csv-parse": "^4.4.3",
     "is-dir": "^1.0.0",
     "kdbxweb": "^1.2.7",
-    "pify": "^3.0.0",
+    "pify": "^4.0.1",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@buttercup/exporter": "~0.1.0",
     "buttercup": "^2.13.0",
     "husky": "~3.0.0",
-    "lint-staged": "^7.0.5",
-    "nodeunit": "^0.10.2",
-    "prettier": "^1.7.4"
+    "lint-staged": "^9.1.0",
+    "nodeunit": "^0.11.3",
+    "prettier": "^1.18.2"
   },
   "peerDependencies": {
     "buttercup": ">= 2.3.0"
