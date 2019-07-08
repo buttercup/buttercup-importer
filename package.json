@@ -6,7 +6,6 @@
   "scripts": {
     "format": "prettier --write '{source,tests}/**/*.js'",
     "precommit": "lint-staged",
-    "pub": "np",
     "test": "nodeunit tests/cli",
     "test:ci": "nodeunit tests/cli --reporter junit --output build"
   },
@@ -36,18 +35,17 @@
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
     "csv-parse": "~2.0.4",
-    "is-dir": "~1.0.0",
-    "kdbxweb": "~1.2.2",
-    "pify": "~3.0.0",
-    "xml2js": "~0.4.19"
+    "is-dir": "^1.0.0",
+    "kdbxweb": "^1.2.7",
+    "pify": "^3.0.0",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@buttercup/exporter": "~0.1.0",
     "buttercup": "^2.3.0",
-    "husky": "^0.14.3",
+    "husky": "~3.0.0",
     "lint-staged": "^7.0.5",
-    "nodeunit": "~0.10.2",
-    "np": "~2.20.1",
+    "nodeunit": "^0.10.2",
     "prettier": "^1.7.4"
   },
   "peerDependencies": {
