@@ -4,6 +4,7 @@ const KDBXImporter = require("./importers/KDBXImporter.js");
 const OnePasswordImporter = require("./importers/1PasswordImporter.js");
 const importFromLastPass = require("./importers/LastPassImporter.js");
 const importFromButtercup = require("./importers/ButtercupImporter.js");
+const importFromBitwarden = require("./importers/BitwardenImporter.js");
 
 module.exports = {
     /**
@@ -39,5 +40,12 @@ module.exports = {
      * @param {String} bcupCSVPath The path to the CSV file
      * @returns {Promise.<Archive>} A promise that resolves with the imported archive
      */
-    importFromButtercup
+    importFromButtercup,
+
+    /**
+     * Import an exported Bitwarden JSON archive
+     * @param {String} bwJsonPath The path to the Bitwarden JSON file
+     * @returns {Promise.<Archive>} A promise that resolves with the imported archive
+     */
+    importFromBitwarden
 };

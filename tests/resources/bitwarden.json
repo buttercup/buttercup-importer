@@ -1,0 +1,54 @@
+{
+  "folders": [
+    {
+      "id": "314ab159-6715-4efb-9ddd-109e104eb3f6",
+      "name": "FooBar"
+    }
+  ],
+  "items": [
+    {
+      "folderId": null,
+      "name": "Item without any info"
+    },
+    {
+      "folderId": "314ab159-6715-4efb-9ddd-109e104eb3f6",
+      "name": "Item with login",
+      "login": {
+        "username": "username1",
+        "password": "password1"
+      }
+    },
+    {
+      "folderId": "314ab159-6715-4efb-9ddd-109e104eb3f6",
+      "name": "Item with login uri",
+      "login": {
+        "username": "username2",
+        "password": "password2",
+        "uris": [
+          {
+            "uri": "https://example.org"
+          }
+        ]
+      }
+    },
+    {
+      "folderId": null,
+      "name": "Item with notes",
+      "notes": "This is a note"
+    },
+    {
+      "folderId": null,
+      "name": "Item with fields",
+      "fields": [
+        {
+          "name": "field1",
+          "value": "example.com"
+        },
+        {
+          "name": "field2",
+          "value": "value2"
+        }
+      ]
+    }
+  ]
+}
