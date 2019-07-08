@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.5.0",
+    "@babel/plugin-proposal-object-rest-spread": "~7.5.2",
     "@babel/preset-env": "~7.5.0",
     "@buttercup/exporter": "~0.1.0",
     "babel-loader": "~8.0.6",
