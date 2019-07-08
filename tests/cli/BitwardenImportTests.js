@@ -1,8 +1,6 @@
-"use strict";
-
 const path = require("path");
 
-const { importFromBitwarden } = require("../../source/index.js");
+const { importFromBitwarden } = require("../../dist/buttercup-importer.js");
 const { Archive, Entry } = require("buttercup");
 
 const bwJsonPath = path.resolve(__dirname, "../resources/bitwarden.json");

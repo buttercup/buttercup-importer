@@ -1,8 +1,6 @@
-"use strict";
-
 var path = require("path");
 
-var ButtercupImporter = require("../../source/index.js"),
+var ButtercupImporter = require("../../dist/buttercup-importer.js"),
     Buttercup = require("buttercup"),
     Archive = Buttercup.Archive,
     Group = Buttercup.Group,
