@@ -3,6 +3,8 @@ const path = require("path");
 const ButtercupImporter = require("../../dist/buttercup-importer.js");
 const { Archive, Group, Entry } = require("buttercup");
 
+console.log("IMPORTER", ButtercupImporter);
+
 module.exports = {
     setUp: function(cb) {
         this.exampleArchive = path.resolve(

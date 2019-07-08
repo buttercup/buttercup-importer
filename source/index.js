@@ -1,53 +1,32 @@
-const KDBXImporter = require("./importers/KDBXImporter.js");
-const KeePass2XMLImporter = require("./importers/KeePass2XMLImporter.js");
-const OnePasswordImporter = require("./importers/1PasswordImporter.js");
-const importFromLastPass = require("./importers/LastPassImporter.js");
-const importFromButtercup = require("./importers/ButtercupImporter.js");
-const importFromBitwarden = require("./importers/BitwardenImporter.js");
+import "core-js/stable";
 
-module.exports = {
-    KDBXImporter,
-    KeePass2XMLImporter,
+import OnePasswordImporter from "./importers/1PasswordImporter.js";
+import KDBXImporter from "./importers/KDBXImporter.js";
 
-    /**
-     * Import an exported 1Password (1pif) archive
-     * @param {String} pifPath The path to the 1password 1pif file
-     * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-     */
-    importFrom1PIF: function(pifPath) {
-        const importer = new OnePasswordImporter(pifPath);
-        return importer.export();
-    },
+export { default as KDBXImporter } from "./importers/KDBXImporter.js";
+export { default as KeePass2XMLImporter } from "./importers/KeePass2XMLImporter.js";
 
-    /**
-     * Import a Keepass 2 KDBX archive
-     * @param {String} kdbxFile A KDBX archive filename
-     * @param {String} password The password for the archive (loading KDBX and saving BCUP)
-     * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-     */
-    importFromKDBX: function(kdbxFile, password) {
-        var importer = new KDBXImporter(kdbxFile);
-        return importer.export(password);
-    },
+/**
+ * Import an exported 1Password (1pif) archive
+ * @param {String} pifPath The path to the 1password 1pif file
+ * @returns {Promise.<Archive>} A promise that resolves with the imported archive
+ */
+export function importFrom1PIF(pifPath) {
+    const importer = new OnePasswordImporter(pifPath);
+    return importer.export();
+}
 
-    /**
-     * Import an exported LastPass CSV archive
-     * @param {String} lpcsvPath The path to the LastPass CSV file
-     * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-     */
-    importFromLastPass,
+/**
+ * Import a Keepass 2 KDBX archive
+ * @param {String} kdbxFile A KDBX archive filename
+ * @param {String} password The password for the archive (loading KDBX and saving BCUP)
+ * @returns {Promise.<Archive>} A promise that resolves with the imported archive
+ */
+export function importFromKDBX(kdbxFile, password) {
+    const importer = new KDBXImporter(kdbxFile);
+    return importer.export(password);
+}
 
-    /**
-     * Import an exported Buttercup archive
-     * @param {String} bcupCSVPath The path to the CSV file
-     * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-     */
-    importFromButtercup,
-
-    /**
-     * Import an exported Bitwarden JSON archive
-     * @param {String} bwJsonPath The path to the Bitwarden JSON file
-     * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-     */
-    importFromBitwarden
-};
+export { default as importFromLastPass } from "./importers/LastPassImporter.js";
+export { default as importFromButtercup } from "./importers/ButtercupImporter.js";
+export { default as importFromBitwarden } from "./importers/BitwardenImporter.js";

@@ -1,5 +1,3 @@
-"use strict";
-
 const ATTR_1PASS_TYPE = "ONEPASS_IMPORT_TYPE";
 const ENTRY_NORMAL = /^webforms\.WebForm/i;
 const ENTRY_CREDITCARD = /^wallet\.financial\.CreditCard/i;
