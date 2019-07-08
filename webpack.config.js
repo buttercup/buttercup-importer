@@ -10,8 +10,24 @@ module.exports = {
     module: {
         rules : [
             {
-                test: /\.js$/,
-                use: ["babel-loader"],
+                test: /\.(js|esm)$/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        "presets": [
+                            ["@babel/preset-env", {
+                                "targets": {
+                                    "node": "6"
+                                }
+                            }]
+                        ],
+                        "plugins": [
+                            ["@babel/plugin-proposal-object-rest-spread", {
+                                "useBuiltIns": true
+                            }]
+                        ]
+                    }
+                }
             }
         ]
     },

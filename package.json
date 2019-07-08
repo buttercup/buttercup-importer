@@ -44,18 +44,19 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@babel/core": "~7.5.0",
-    "@babel/plugin-proposal-object-rest-spread": "~7.5.2",
-    "@babel/preset-env": "~7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.2",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.2",
     "@buttercup/exporter": "~0.1.0",
-    "babel-loader": "~8.0.6",
+    "babel-loader": "^8.0.6",
     "buttercup": "^2.13.0",
-    "husky": "~3.0.0",
+    "husky": "^3.0.0",
     "lint-staged": "^9.1.0",
     "nodeunit": "^0.11.3",
     "prettier": "^1.18.2",
-    "webpack": "~4.35.3",
-    "webpack-cli": "~3.3.5"
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
   },
   "peerDependencies": {
     "buttercup": ">= 2.3.0"
