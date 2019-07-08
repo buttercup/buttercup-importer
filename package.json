@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
-    "csv-parse": "~2.0.4",
+    "csv-parse": "^4.4.3",
     "is-dir": "^1.0.0",
     "kdbxweb": "^1.2.7",
     "pify": "^3.0.0",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@buttercup/exporter": "~0.1.0",
-    "buttercup": "^2.3.0",
+    "buttercup": "^2.13.0",
     "husky": "~3.0.0",
     "lint-staged": "^7.0.5",
     "nodeunit": "^0.10.2",
