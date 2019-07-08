@@ -1,9 +1,8 @@
-"use strict";
-
 var path = require("path");
 
+const { KeePass2XMLImporter } = require("../../dist/buttercup-importer.js");
+
 var Buttercup = require("buttercup"),
-    KeePass2XMLImporter = require("../../source/importers/KeePass2XMLImporter.js"),
     Group = Buttercup.Group,
     Entry = Buttercup.Entry,
     encodingTools = Buttercup.tools.encoding;

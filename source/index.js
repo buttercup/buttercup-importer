@@ -1,12 +1,14 @@
-"use strict";
-
 const KDBXImporter = require("./importers/KDBXImporter.js");
+const KeePass2XMLImporter = require("./importers/KeePass2XMLImporter.js");
 const OnePasswordImporter = require("./importers/1PasswordImporter.js");
 const importFromLastPass = require("./importers/LastPassImporter.js");
 const importFromButtercup = require("./importers/ButtercupImporter.js");
 const importFromBitwarden = require("./importers/BitwardenImporter.js");
 
 module.exports = {
+    KDBXImporter,
+    KeePass2XMLImporter,
+
     /**
      * Import an exported 1Password (1pif) archive
      * @param {String} pifPath The path to the 1password 1pif file
