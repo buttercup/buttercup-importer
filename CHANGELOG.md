@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v0.15.0
+_2019-07-11_
+
+ * Bitwarden import support
+
 ## v0.14.1
 _2018-07-28_
 
