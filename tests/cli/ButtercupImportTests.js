@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { exportArchiveToCSV } = require("@buttercup/exporter");
 const { Archive, Group, Entry } = require("buttercup");
-const importFromButtercup = require("../../source/importers/ButtercupImporter.js");
+const { importFromButtercup } = require("../../dist/buttercup-importer.js");
 
 const CSV_PATH = path.resolve(__dirname, "./bcup.tmp.csv");
 

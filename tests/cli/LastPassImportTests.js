@@ -1,8 +1,6 @@
-"use strict";
-
 const path = require("path");
 
-const { importFromLastPass } = require("../../source/index.js");
+const { importFromLastPass } = require("../../dist/buttercup-importer.js");
 const { Archive } = require("buttercup");
 
 const lpcsvPath = path.resolve(__dirname, "../resources/lastpass.csv");

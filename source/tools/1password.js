@@ -1,5 +1,3 @@
-"use strict";
-
 const { onePasswordItemToEntry } = require("./1passwordEntry.js");
 
 const ONEPASS_FOLDER = /^system\.folder/i;

@@ -1,8 +1,6 @@
-"use strict";
-
 const path = require("path");
 
-const ButtercupImporter = require("../../source/index.js");
+const ButtercupImporter = require("../../dist/buttercup-importer.js");
 const { Archive, Group, Entry } = require("buttercup");
 
 module.exports = {

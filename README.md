@@ -38,7 +38,7 @@ Imported 1Password archives may lose some information regarding their type (eg. 
 #### LastPass
 Lastpass credentials can be exported as CSV files, which can be imported using Buttercup importer.
 
-### Bitwarden
+#### Bitwarden
 Bitwarden credentials can be exported as JSON files, which can be imported using Buttercup importer.
 
 Imported bitwarden archives contain the username, password, the first url associated with the item, notes and any custom fields. Attachments are not currently supported.
