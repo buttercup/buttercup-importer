@@ -4,7 +4,7 @@
   "description": "Buttercup archive importer for other password manager archives",
   "main": "dist/buttercup-importer.js",
   "scripts": {
-    "build": "webpack --mode=development",
+    "build": "webpack --mode=production",
     "dev": "webpack --mode=development --watch --progress",
     "format": "prettier --write '{source,tests}/**/*.js'",
     "precommit": "lint-staged",
