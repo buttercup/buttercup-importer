@@ -4,7 +4,9 @@ module.exports = {
     entry: path.resolve(__dirname, "./source/index.js"),
 
     externals: {
-        buttercup: "buttercup"
+        argon2: "argon2",
+        buttercup: "buttercup",
+        kdbxweb: "kdbxweb"
     },
 
     module: {
