@@ -11,20 +11,16 @@ function argon2(
     type,
     version
 ) {
-    return nodeArgon2
-        .hash(toBuffer(password), {
-            salt: toBuffer(salt),
-            type,
-            memoryCost: memory,
-            hashLength: length,
-            parallelism,
-            version,
-            timeCost: iterations,
-            raw: true
-        })
-        .then(out => {
-            return out;
-        });
+    return nodeArgon2.hash(toBuffer(password), {
+        salt: toBuffer(salt),
+        type,
+        memoryCost: memory,
+        hashLength: length,
+        parallelism,
+        version,
+        timeCost: iterations,
+        raw: true
+    });
 }
 
 module.exports = {

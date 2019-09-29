@@ -4,7 +4,9 @@ import OnePasswordImporter from "./importers/1PasswordImporter.js";
 import KDBXImporter from "./importers/KDBXImporter.js";
 
 export { default as KDBXImporter } from "./importers/KDBXImporter.js";
-export { default as KeePass2XMLImporter } from "./importers/KeePass2XMLImporter.js";
+export {
+    default as KeePass2XMLImporter
+} from "./importers/KeePass2XMLImporter.js";
 
 /**
  * Import an exported 1Password (1pif) archive
@@ -28,5 +30,9 @@ export function importFromKDBX(kdbxFile, password) {
 }
 
 export { default as importFromLastPass } from "./importers/LastPassImporter.js";
-export { default as importFromButtercup } from "./importers/ButtercupImporter.js";
-export { default as importFromBitwarden } from "./importers/BitwardenImporter.js";
+export {
+    default as importFromButtercup
+} from "./importers/ButtercupImporter.js";
+export {
+    default as importFromBitwarden
+} from "./importers/BitwardenImporter.js";

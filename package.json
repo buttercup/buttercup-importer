@@ -12,6 +12,11 @@
     "test": "npm run build && nodeunit tests/cli",
     "test:ci": "npm run build && nodeunit tests/cli --reporter junit --output build"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "{source,tests}/**/*.js": [
       "prettier --write",
