@@ -1,5 +1,8 @@
-var fs = require("fs"),
-    kdbxweb = require("kdbxweb");
+const fs = require("fs");
+const kdbxweb = require("kdbxweb");
+const { argon2 } = require("../crypto/argon2.js");
+
+kdbxweb.CryptoEngine.argon2 = argon2;
 
 var Buttercup = require("buttercup"),
     KeePass2XMLImporter = require("./KeePass2XMLImporter.js");

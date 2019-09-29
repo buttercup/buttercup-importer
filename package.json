@@ -37,26 +37,29 @@
   },
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
-    "core-js": "^3.1.4",
-    "csv-parse": "^4.4.3",
-    "is-dir": "^1.0.0",
-    "kdbxweb": "^1.5.3",
-    "pify": "^4.0.1",
-    "xml2js": "^0.4.19"
+    "argon2": "^0.24.1",
+    "kdbxweb": "^1.5.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.2",
     "@babel/preset-env": "^7.5.2",
     "@buttercup/exporter": "~0.1.0",
+    "arraybuffer-to-string": "^1.0.2",
     "babel-loader": "^8.0.6",
     "buttercup": "^2.13.0",
+    "core-js": "^3.1.4",
+    "csv-parse": "^4.4.3",
     "husky": "^3.0.0",
+    "is-dir": "^1.0.0",
     "lint-staged": "^9.1.0",
     "nodeunit": "^0.11.3",
+    "pify": "^4.0.1",
     "prettier": "^1.18.2",
+    "typedarray-to-buffer": "^3.1.5",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "xml2js": "^0.4.19"
   },
   "peerDependencies": {
     "buttercup": ">= 2.3.0"
