@@ -7,11 +7,11 @@ Import archives from other password managers.
 This archive importer coverts password archives from other formats to the Buttercup archive format (BCUP).
 
 ### Supported platforms
-The importer requires Node **6** or higher.
+The importer requires Node **8** or higher.
 
 ### Supported password archive formats
 
-* ![KDBX (keepass)](https://img.shields.io/badge/KDBX-Full-brightgreen.svg) KeePass 2 archives
+* ![KDBX (keepass)](https://img.shields.io/badge/KDBX-Full-brightgreen.svg) KeePass 2 archives (KDBX v3 and v4)
 * ![Lastpass](https://img.shields.io/badge/CSV-Full-brightgreen.svg) Lastpass archives
 * ![1Password](https://img.shields.io/badge/1PIF-Most-brightgreen.svg) 1Password PIF files (exported)
 * ![Buttercup](https://img.shields.io/badge/CSV-Most-brightgreen.svg) Buttercup archives (exported)
@@ -21,6 +21,8 @@ The importer requires Node **6** or higher.
 
 #### KeePass 2
 KeePass archives for KeePass 2 can be opened using the `importFromKDBX` command. Simply pass the filename, password and destination path.
+
+This library supports both version 3 and 4 of the KDBX format, including the newly required argon2 hashing feature.
 
 #### 1Password
 When your archive is open, choose to export all entries to 1PIF format. Provide the path and destination to the `importFrom1PIF` function.
