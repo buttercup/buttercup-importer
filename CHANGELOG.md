@@ -1,5 +1,12 @@
 # Buttercup importer changelog
 
+## v1.0.0
+_2019-10-02_
+
+ * Removed Node 6 support
+ * Upgrade kdbxweb to latest version (1.5.3)
+ * Support argon2 for kdbxweb and KDBX version 4
+
 ## v0.15.0
 _2019-07-11_
 
