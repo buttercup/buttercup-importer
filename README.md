@@ -6,6 +6,9 @@ Import archives from other password managers.
 ## About
 This archive importer coverts password archives from other formats to the Buttercup archive format (BCUP).
 
+### Usage
+This library is not intended to be used as a standalone application. Its functionality is available via the Buttercup Desktop applications.
+
 ### Supported platforms
 The importer requires Node **8** or higher.
 
