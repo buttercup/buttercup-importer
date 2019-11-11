@@ -22,11 +22,12 @@ export function importFrom1PIF(pifPath) {
  * Import a Keepass 2 KDBX archive
  * @param {String} kdbxFile A KDBX archive filename
  * @param {String} password The password for the archive (loading KDBX and saving BCUP)
+ * @param {String} [keyFile] The key file for the archive (optional)
  * @returns {Promise.<Archive>} A promise that resolves with the imported archive
  */
-export function importFromKDBX(kdbxFile, password) {
+export function importFromKDBX(kdbxFile, password, keyFile) {
     const importer = new KDBXImporter(kdbxFile);
-    return importer.export(password);
+    return importer.export(password, keyFile);
 }
 
 export { default as importFromLastPass } from "./importers/LastPassImporter.js";
