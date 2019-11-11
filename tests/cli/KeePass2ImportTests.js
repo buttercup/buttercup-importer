@@ -14,6 +14,16 @@ module.exports = {
                 "../resources/test-archive-kdbx3.kdbx"
             );
             this.examplePassword = "passw0rd";
+
+            this.exampleArchiveKeyfile = path.resolve(
+                __dirname,
+                "../resources/test-archive-keyfile-kdbx3.kdbx"
+            );
+            this.examplePasswordKeyfile = "passw0rd";
+            this.exampleKeyfile = path.resolve(
+                __dirname,
+                "../resources/test-archive-keyfile-kdbx3.key"
+            );
             cb();
         },
 
@@ -22,6 +32,20 @@ module.exports = {
                 ButtercupImporter.importFromKDBX(
                     this.exampleArchive,
                     this.examplePassword
+                ).then(function(archive) {
+                    test.ok(
+                        archive instanceof Archive,
+                        "Archive should be a Buttercup archive instance"
+                    );
+                    test.done();
+                });
+            },
+
+            createsArchiveKeyFile: function(test) {
+                ButtercupImporter.importFromKDBX(
+                    this.exampleArchiveKeyfile,
+                    this.examplePasswordKeyfile,
+                    this.exampleKeyfile
                 ).then(function(archive) {
                     test.ok(
                         archive instanceof Archive,
@@ -120,6 +144,33 @@ module.exports = {
                         test.done();
                     }
                 );
+            },
+
+            throwsForIncorrectKeyfile: function(test) {
+                ButtercupImporter.importFromKDBX(
+                    this.exampleArchive,
+                    this.examplePassword,
+                    this.exampleKeyfile
+                ).then(
+                    function() {
+                        throw new Error(
+                            "Should not be here: error should have thrown"
+                        );
+                    },
+                    function(err) {
+                        test.strictEqual(
+                            err.name,
+                            "KdbxError",
+                            "Error name should match"
+                        );
+                        test.strictEqual(
+                            err.code,
+                            "InvalidKey",
+                            "Error code should match"
+                        );
+                        test.done();
+                    }
+                );
             }
         }
     },
@@ -131,6 +182,16 @@ module.exports = {
                 "../resources/test-archive-kdbx4.kdbx"
             );
             this.examplePassword = "passw0rd";
+
+            this.exampleArchiveKeyfile = path.resolve(
+                __dirname,
+                "../resources/test-archive-keyfile-kdbx4.kdbx"
+            );
+            this.examplePasswordKeyfile = "passw0rd";
+            this.exampleKeyfile = path.resolve(
+                __dirname,
+                "../resources/test-archive-keyfile-kdbx4.key"
+            );
             cb();
         },
 
@@ -150,6 +211,20 @@ module.exports = {
                     .catch(err => {
                         console.error(err);
                     });
+            },
+
+            createsArchiveKeyFile: function(test) {
+                ButtercupImporter.importFromKDBX(
+                    this.exampleArchiveKeyfile,
+                    this.examplePasswordKeyfile,
+                    this.exampleKeyfile
+                ).then(function(archive) {
+                    test.ok(
+                        archive instanceof Archive,
+                        "Archive should be a Buttercup archive instance"
+                    );
+                    test.done();
+                });
             },
 
             containsGroups: function(test) {
@@ -221,6 +296,33 @@ module.exports = {
                 ButtercupImporter.importFromKDBX(
                     this.exampleArchive,
                     "wrong password"
+                ).then(
+                    function() {
+                        throw new Error(
+                            "Should not be here: error should have thrown"
+                        );
+                    },
+                    function(err) {
+                        test.strictEqual(
+                            err.name,
+                            "KdbxError",
+                            "Error name should match"
+                        );
+                        test.strictEqual(
+                            err.code,
+                            "InvalidKey",
+                            "Error code should match"
+                        );
+                        test.done();
+                    }
+                );
+            },
+
+            throwsForIncorrectKeyfile: function(test) {
+                ButtercupImporter.importFromKDBX(
+                    this.exampleArchive,
+                    this.examplePassword,
+                    this.exampleKeyfile
                 ).then(
                     function() {
                         throw new Error(
