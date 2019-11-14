@@ -25,7 +25,7 @@ The importer requires Node **8** or higher.
 #### KeePass 2
 KeePass archives for KeePass 2 can be opened using the `importFromKDBX` command. Simply pass the filename, password and destination path.
 
-This library supports both version 3 and 4 of the KDBX format, including the newly required argon2 hashing feature.
+This library supports both version 3 and 4 of the KDBX format, including the newly required argon2 hashing feature. Key files are also supported.
 
 #### 1Password
 When your archive is open, choose to export all entries to 1PIF format. Provide the path and destination to the `importFrom1PIF` function.

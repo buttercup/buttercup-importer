@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v1.1.0
+_2019-11-14_
+
+ * KDBX key file support
+
 ## v1.0.0
 _2019-10-02_
 
