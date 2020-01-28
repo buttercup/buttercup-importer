@@ -37,3 +37,4 @@ export {
 export {
     default as importFromBitwarden
 } from "./importers/BitwardenImporter.js";
+export { default as importFromCSV } from "./importers/CSVImporter.js";
