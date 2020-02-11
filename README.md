@@ -1,7 +1,7 @@
 # Buttercup Archive Importer
 Import archives from other password managers.
 
-[![npm version](https://badge.fury.io/js/buttercup-importer.svg)](https://www.npmjs.com/package/buttercup-importer) [![minium node version](https://img.shields.io/badge/node%20version-%3E%3D%206.x-blue.svg)](https://github.com/buttercup/buttercup-importer) [![Build Status](https://travis-ci.org/buttercup/buttercup-importer.svg?branch=master)](https://travis-ci.org/buttercup/buttercup-importer) ![npm downloads](https://img.shields.io/npm/dm/buttercup-importer.svg?maxAge=2592000)
+[![npm version](https://badge.fury.io/js/buttercup-importer.svg)](https://www.npmjs.com/package/buttercup-importer) [![minium node version](https://img.shields.io/badge/node%20version-%3E%3D%208.x-blue.svg)](https://github.com/buttercup/buttercup-importer) [![Build Status](https://travis-ci.org/buttercup/buttercup-importer.svg?branch=master)](https://travis-ci.org/buttercup/buttercup-importer) ![npm downloads](https://img.shields.io/npm/dm/buttercup-importer.svg?maxAge=2592000)
 
 ## About
 This archive importer coverts password archives from other formats to the Buttercup archive format (BCUP).
@@ -18,7 +18,7 @@ The importer requires Node **8** or higher.
 * ![Lastpass](https://img.shields.io/badge/CSV-Full-brightgreen.svg) Lastpass archives
 * ![1Password](https://img.shields.io/badge/1PIF-Most-brightgreen.svg) 1Password PIF files (exported)
 * ![Buttercup](https://img.shields.io/badge/CSV-Most-brightgreen.svg) Buttercup archives (exported)
-* ![CSV](https://img.shields.io/badge/CSV-None-red.svg) CSV files (general)
+* ![CSV](https://img.shields.io/badge/CSV-Basic-brightgreen.svg) CSV files (generic)
 
 ### Importing from 3rd-party managers
 

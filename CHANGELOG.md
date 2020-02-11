@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v1.2.0
+_2020-02-11_
+
+ * Generic CSV importer
+
 ## v1.1.0
 _2019-11-14_
 
