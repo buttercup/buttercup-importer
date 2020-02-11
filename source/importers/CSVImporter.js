@@ -17,7 +17,7 @@ const importFromCSV = archiveCSVPath => {
         const group = archive.createGroup(groupName);
         csvparse(contents, { columns: true }).forEach((item, index) => {
             const entry = group.createEntry(
-                item.name || item.url || `Item ${index}`
+                item.name || item.title || item.url || `Entry ${index}`
             );
             if (item.username) {
                 entry.setProperty("username", item.username);
