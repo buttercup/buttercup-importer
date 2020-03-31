@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
-    "argon2": "^0.24.1",
+    "argon2": "^0.26.1",
     "kdbxweb": "^1.5.3"
   },
   "devDependencies": {
