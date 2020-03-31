@@ -1,5 +1,12 @@
 # Buttercup importer changelog
 
+## v1.3.0
+_2020-03-31_
+
+ * Update all dependencies
+ * **Bugfix**:
+   * [#54](https://github.com/buttercup/buttercup-importer/pull/54) Fix argon2 Windows builds
+
 ## v1.2.0
 _2020-02-11_
 
