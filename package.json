@@ -43,28 +43,28 @@
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
     "argon2": "^0.26.1",
-    "kdbxweb": "^1.5.3"
+    "kdbxweb": "^1.5.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.2",
-    "@babel/preset-env": "^7.5.2",
-    "@buttercup/exporter": "~0.1.0",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@buttercup/exporter": "^0.1.0",
     "arraybuffer-to-string": "^1.0.2",
-    "babel-loader": "^8.0.6",
-    "buttercup": "^2.13.0",
-    "core-js": "^3.1.4",
-    "csv-parse": "^4.4.3",
-    "husky": "^3.0.0",
+    "babel-loader": "^8.1.0",
+    "buttercup": "^2.16.1",
+    "core-js": "^3.6.4",
+    "csv-parse": "^4.8.8",
+    "husky": "^4.2.3",
     "is-dir": "^1.0.0",
-    "lint-staged": "^9.1.0",
+    "lint-staged": "^10.1.1",
     "nodeunit": "^0.11.3",
-    "pify": "^4.0.1",
-    "prettier": "^1.18.2",
+    "pify": "^5.0.0",
+    "prettier": "^2.0.2",
     "typedarray-to-buffer": "^3.1.5",
-    "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5",
-    "xml2js": "^0.4.19"
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "xml2js": "^0.4.23"
   },
   "peerDependencies": {
     "buttercup": ">= 2.3.0"
