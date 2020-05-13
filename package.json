@@ -52,7 +52,7 @@
     "@buttercup/exporter": "^0.1.0",
     "arraybuffer-to-string": "^1.0.2",
     "babel-loader": "^8.1.0",
-    "buttercup": "^2.16.1",
+    "buttercup": "4.0.0-r03",
     "core-js": "^3.6.4",
     "csv-parse": "^4.8.8",
     "husky": "^4.2.3",
@@ -67,6 +67,6 @@
     "xml2js": "^0.4.23"
   },
   "peerDependencies": {
-    "buttercup": ">= 2.3.0"
+    "buttercup": ">= 4.0.0"
   }
 }
