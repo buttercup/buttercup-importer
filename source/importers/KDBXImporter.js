@@ -1,12 +1,12 @@
 const fs = require("fs");
 const kdbxweb = require("kdbxweb");
-const util = require("util");
+const pify = require("pify");
 const { argon2 } = require("../crypto/argon2.js");
 const KeePass2XMLImporter = require("./KeePass2XMLImporter.js");
 
 kdbxweb.CryptoEngine.argon2 = argon2;
 
-const readFilePromise = util.promisify(fs.readFile);
+const readFile = pify(fs.readFile);
 
 function toArrayBuffer(buffer) {
     var ab = new ArrayBuffer(buffer.length);
@@ -18,20 +18,18 @@ function toArrayBuffer(buffer) {
 }
 
 class KDBXImporter {
-    constructor(filename) {
+    constructor(filename, keyfile = null) {
         this._filename = filename;
+        this._keyFilename = keyfile;
     }
 
-    export(password, keyfile) {
-        const kdbxFiles = [readFilePromise(this._filename)];
-        if (keyfile) {
-            kdbxFiles.push(readFilePromise(keyfile));
+    export(password) {
+        const kdbxFiles = [readFile(this._filename)];
+        if (this._keyFilename) {
+            kdbxFiles.push(readFile(this._keyFilename));
         }
-
         return Promise.all(kdbxFiles)
             .then(([baseFile, keyFile]) => {
-                // 1st element, in the array, are the contents of the KDBX file
-                // 2nd element, in the array, are the contents of the keyfile, if provided
                 const credentials = new kdbxweb.Credentials(
                     kdbxweb.ProtectedValue.fromString(password),
                     keyFile ? toArrayBuffer(keyFile) : undefined

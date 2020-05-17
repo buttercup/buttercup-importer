@@ -15,12 +15,12 @@ describe("CSVImporter", function() {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    it("cantains expected groups", function() {
+    it("exports expected groups", function() {
         const groups = this.vault.getGroups().map(g => g.getTitle());
         expect(groups).to.contain("chrome_pass");
     });
 
-    it("contains expected entries", function() {
+    it("exports expected entries", function() {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item without any info"
