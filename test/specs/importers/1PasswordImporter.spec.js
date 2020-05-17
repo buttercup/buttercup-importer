@@ -6,7 +6,7 @@ const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/test-1password.1p
 
 describe("1PasswordImporter", function() {
     beforeEach(function() {
-        const importer = new OnePasswordImporter(EXAMPLE_VAULT)
+        const importer = new OnePasswordImporter(EXAMPLE_VAULT);
         return importer.export().then(vault => {
             this.vault = vault;
         });
