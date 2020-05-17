@@ -4,59 +4,63 @@ const { Vault } = require("buttercup");
 
 const DEFAULT_GROUP = "General";
 
-/**
- * Import an exported Bitwarden JSON vault
- * @param {String} bwJsonPath The path to the Bitwarden JSON file
- * @returns {Promise.<Vault>} A promise that resolves with the imported vault
- */
-const importFromBitwarden = (bwJsonPath) => {
-    const groups = {};
-    return pify(fs.readFile)(bwJsonPath, "utf8").then((contents) => {
-        const vault = new Vault();
-        const bwJson = JSON.parse(contents);
+class BitwardenImporter {
+    constructor(filename) {
+        this._filename = filename;
+    }
 
-        // Create mapping between folder ids and groups
-        groups[null] = vault.createGroup(DEFAULT_GROUP);
-        bwJson.folders.forEach((bitwardenFolder) => {
-            if (bitwardenFolder.name == "General") {
-                groups[bitwardenFolder.id] = groups[null];
-            } else {
-                groups[bitwardenFolder.id] = vault.createGroup(
-                    bitwardenFolder.name
-                );
-            }
-        });
+    export() {
+        const groups = {};
+        return pify(fs.readFile)(this._filename, "utf8").then((contents) => {
+            const vault = new Vault();
+            const bwJson = JSON.parse(contents);
 
-        bwJson.items.forEach((bitwardenItem) => {
-            const group = groups[bitwardenItem.folderId];
-
-            const entry = group.createEntry(bitwardenItem.name);
-
-            if ("login" in bitwardenItem) {
-                entry.setProperty("username", bitwardenItem.login.username);
-                entry.setProperty("password", bitwardenItem.login.password);
-
-                if (
-                    "uris" in bitwardenItem.login &&
-                    bitwardenItem.login.uris.length > 0
-                ) {
-                    entry.setProperty("URL", bitwardenItem.login.uris[0].uri);
+            // Create mapping between folder ids and groups
+            groups[null] = vault.createGroup(DEFAULT_GROUP);
+            bwJson.folders.forEach((bitwardenFolder) => {
+                if (bitwardenFolder.name == "General") {
+                    groups[bitwardenFolder.id] = groups[null];
+                } else {
+                    groups[bitwardenFolder.id] = vault.createGroup(
+                        bitwardenFolder.name
+                    );
                 }
-            }
+            });
 
-            if ("notes" in bitwardenItem) {
-                entry.setProperty("Notes", bitwardenItem.notes);
-            }
+            bwJson.items.forEach((bitwardenItem) => {
+                const group = groups[bitwardenItem.folderId];
 
-            if ("fields" in bitwardenItem) {
-                bitwardenItem.fields.forEach((itemField) => {
-                    entry.setProperty(itemField.name, itemField.value);
-                });
-            }
+                const entry = group.createEntry(bitwardenItem.name);
+
+                if ("login" in bitwardenItem) {
+                    entry.setProperty("username", bitwardenItem.login.username);
+                    entry.setProperty("password", bitwardenItem.login.password);
+
+                    if (
+                        "uris" in bitwardenItem.login &&
+                        bitwardenItem.login.uris.length > 0
+                    ) {
+                        entry.setProperty(
+                            "URL",
+                            bitwardenItem.login.uris[0].uri
+                        );
+                    }
+                }
+
+                if ("notes" in bitwardenItem) {
+                    entry.setProperty("Notes", bitwardenItem.notes);
+                }
+
+                if ("fields" in bitwardenItem) {
+                    bitwardenItem.fields.forEach((itemField) => {
+                        entry.setProperty(itemField.name, itemField.value);
+                    });
+                }
+            });
+
+            return vault;
         });
+    }
+}
 
-        return vault;
-    });
-};
-
-module.exports = importFromBitwarden;
+module.exports = BitwardenImporter;

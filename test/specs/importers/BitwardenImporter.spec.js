@@ -1,12 +1,13 @@
 const path = require("path");
-const importFromBitwarden = require("../../../dist/importers/BitwardenImporter.js");
+const BitwardenImporter = require("../../../dist/importers/BitwardenImporter.js");
 const { Entry, Group, Vault } = require("buttercup");
 
 const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/bitwarden.json");
 
 describe("BitwardenImporter", function() {
     beforeEach(function() {
-        return importFromBitwarden(EXAMPLE_VAULT).then(vault => {
+        const importer = new BitwardenImporter(EXAMPLE_VAULT);
+        return importer.export().then(vault => {
             this.vault = vault;
         });
     });

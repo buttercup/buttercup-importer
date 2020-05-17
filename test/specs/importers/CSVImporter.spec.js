@@ -1,14 +1,17 @@
 const path = require("path");
-const importFromCSV = require("../../../dist/importers/CSVImporter.js");
+const CSVImporter = require("../../../dist/importers/CSVImporter.js");
 const { Entry, Group, Vault } = require("buttercup");
 
 const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/chrome_pass.csv");
 
 describe("CSVImporter", function() {
     beforeEach(function() {
-        return importFromCSV(EXAMPLE_VAULT).then(vault => {
-            this.vault = vault;
-        });
+        return CSVImporter
+            .loadFromFile(EXAMPLE_VAULT)
+            .then(importer => importer.export())
+            .then(vault => {
+                this.vault = vault;
+            });
     });
 
     it("creates a vault instance", function() {
