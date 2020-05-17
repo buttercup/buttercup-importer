@@ -1,20 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 const pify = require("pify");
-const os = require("os");
 
-const { Archive } = require("buttercup");
+const { Vault } = require("buttercup");
 const csvparse = require("csv-parse/lib/sync");
 
 /**
- * Import csv archive from Chrome/Chromium/Google/Opera and from other popular browsers
- * @param {string} archiveCSVPath
+ * Import CSV vaults from from Chrome/Chromium/Google/Opera and from
+ *  other popular browsers
+ * @param {String} vaultCSVPath
+ * @returns {Promise.<Vault>}
  */
-const importFromCSV = archiveCSVPath => {
-    const groupName = path.basename(archiveCSVPath).split(".")[0];
-    return pify(fs.readFile)(archiveCSVPath, "utf8").then(contents => {
-        const archive = new Archive();
-        const group = archive.createGroup(groupName);
+const importFromCSV = (vaultCSVPath) => {
+    const groupName = path.basename(vaultCSVPath).split(".")[0];
+    return pify(fs.readFile)(vaultCSVPath, "utf8").then((contents) => {
+        const vault = new Vault();
+        const group = vault.createGroup(groupName);
         csvparse(contents, { columns: true }).forEach((item, index) => {
             const entry = group.createEntry(
                 item.name || item.title || item.url || `Entry ${index}`
@@ -26,11 +27,10 @@ const importFromCSV = archiveCSVPath => {
                 entry.setProperty("password", item.password);
             }
             if (item.url) {
-                entry.setMeta("url", item.url);
+                entry.setProperty("URL", item.url);
             }
         });
-
-        return archive;
+        return vault;
     });
 };
 

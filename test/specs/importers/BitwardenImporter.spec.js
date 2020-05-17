@@ -71,18 +71,5 @@ describe("BitwardenImporter", function() {
         expect(entry).to.be.an.instanceOf(Entry);
         expect(entry.getProperty("field1")).to.equal("example.com");
         expect(entry.getProperty("field2")).to.equal("value2");
-
-        test.ok(
-            entry instanceof Entry,
-            "Item with fields entry should have been created"
-        );
-        test.ok(
-            entry.getProperty("field1") === "example.com",
-            "Extra property field1 should be imported"
-        );
-        test.ok(
-            entry.getProperty("field2") === "value2",
-            "Extra property field2 should be imported"
-        );
     });
 });
