@@ -7,33 +7,33 @@ const Buttercup = require("buttercup");
 
 const { convert1pifToJSON } = require("../tools/1password.js");
 
-const { Archive } = Buttercup;
+const { Vault } = Buttercup;
 const readFile = pify(fs.readFile);
 
 /**
  * Map a 1PIF JSON tree back to an archive
- * @param {Archive|Group} parentArchiveItem A Buttercup Archive or Group instance
+ * @param {Vault|Group} parentVaultItem A Buttercup Vault or Group instance
  * @param {Object} treeLevel A JSON group
  */
-function mapTreeLevelToArchive(parentArchiveItem, treeLevel) {
-    const group = parentArchiveItem.createGroup(treeLevel.title);
-    treeLevel.entries.forEach(function(rawEntry) {
+function mapTreeLevelToVault(parentVaultItem, treeLevel) {
+    const group = parentVaultItem.createGroup(treeLevel.title);
+    treeLevel.entries.forEach(function (rawEntry) {
         const entry = group.createEntry(rawEntry.title);
+        Object.keys(rawEntry.meta).forEach(function (metaKey) {
+            entry.setProperty(metaKey, rawEntry.meta[metaKey]);
+        });
         if (rawEntry.username) {
             entry.setProperty("username", rawEntry.username);
         }
         if (rawEntry.password) {
             entry.setProperty("password", rawEntry.password);
         }
-        Object.keys(rawEntry.meta).forEach(function(metaKey) {
-            entry.setMeta(metaKey, rawEntry.meta[metaKey]);
-        });
-        Object.keys(rawEntry.attributes).forEach(function(attributeKey) {
+        Object.keys(rawEntry.attributes).forEach(function (attributeKey) {
             entry.setAttribute(attributeKey, rawEntry.attributes[attributeKey]);
         });
     });
-    treeLevel.groups.forEach(function(rawGroup) {
-        mapTreeLevelToArchive(group, rawGroup);
+    treeLevel.groups.forEach(function (rawGroup) {
+        mapTreeLevelToVault(group, rawGroup);
     });
 }
 
@@ -73,11 +73,11 @@ class OnePasswordImporter {
      */
     export() {
         return readFile(this.path, "utf8")
-            .then(contents => convert1pifToJSON(contents))
-            .then(function(pifTree) {
-                const archive = new Archive();
-                mapTreeLevelToArchive(archive, pifTree);
-                return archive;
+            .then((contents) => convert1pifToJSON(contents))
+            .then(function (pifTree) {
+                const vault = new Vault();
+                mapTreeLevelToVault(vault, pifTree);
+                return vault;
             });
     }
 }
