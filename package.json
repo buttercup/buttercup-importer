@@ -48,6 +48,7 @@
     "kdbxweb": "^1.5.8",
     "pify": "^5.0.0",
     "typedarray-to-buffer": "^3.1.5",
+    "verror": "^1.10.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
