@@ -10,7 +10,7 @@ describe("ButtercupCSVImporter", function() {
     beforeEach(function() {
         const vault = new Vault();
         vault
-            .createGroup("General")
+            .createGroup("Test Group")
             .createEntry("Test")
             .setProperty("username", "user")
             .setProperty("password", "pass")
@@ -35,18 +35,15 @@ describe("ButtercupCSVImporter", function() {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    // it("exports expected groups", function() {
-    //     const groups = this.vault.getGroups().map(g => g.getTitle());
-    //     expect(groups).to.contain("chrome_pass");
-    // });
+    it("exports expected groups", function() {
+        const groups = this.vault.getGroups().map(g => g.getTitle());
+        expect(groups).to.contain("Test Group");
+    });
 
-    // it("exports expected entries", function() {
-    //     const [entry] = this.vault.findEntriesByProperty(
-    //         "title",
-    //         "Item without any info"
-    //     );
-    //     expect(entry).to.be.an.instanceOf(Entry);
-    //     expect(entry.getProperty("username")).to.be.undefined;
-    //     expect(entry.getProperty("password")).to.be.undefined;
-    // });
+    it("exports expected entries", function() {
+        const [entry] = this.vault.findEntriesByProperty("title", "Test");
+        expect(entry).to.be.an.instanceOf(Entry);
+        expect(entry.getProperty("username")).to.equal("user");
+        expect(entry.getProperty("password")).to.equal("pass");
+    });
 });
