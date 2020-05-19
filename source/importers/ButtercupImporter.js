@@ -1,34 +1,39 @@
-const fs = require("fs");
-const pify = require("pify");
-const { Archive, Group } = require("buttercup");
-const csvparse = require("csv-parse/lib/sync");
+const {
+    Credentials,
+    FileDatasource,
+    Vault,
+    consumeVaultFacade,
+    createVaultFacade,
+    init,
+} = require("buttercup");
 
-const NON_COPY_KEYS = ["id", "title"];
-const ROOT_GROUP_ID = "0";
+class ButtercupImporter {
+    constructor(filename) {
+        this._filename = filename;
+    }
 
-function importFromButtercup(bcupCSVPath) {
-    return pify(fs.readFile)(bcupCSVPath, "utf8").then(contents => {
-        const archive = new Archive();
-        csvparse(contents, { columns: true }).forEach(bcupItem => {
-            const {
-                ["!group_id"]: groupID,
-                ["!group_name"]: groupName
-            } = bcupItem;
-            let group = archive.findGroupByID(groupID);
-            if (!group) {
-                group = Group.createNew(archive, ROOT_GROUP_ID, groupID);
-            }
-            group.setTitle(groupName);
-            const entry = group.createEntry(bcupItem.title);
-            Object.keys(bcupItem)
-                .filter(key => /^\!.+/.test(key) === false)
-                .filter(key => NON_COPY_KEYS.indexOf(key) === -1)
-                .forEach(key => {
-                    entry.setProperty(key, bcupItem[key]);
-                });
+    /**
+     * Export as a new Buttercup vault
+     * @param {String} masterPassword Source vault master password
+     * @returns {Promise.<Vault>}
+     * @memberof ButtercupImporter
+     */
+    export(masterPassword) {
+        init();
+        const creds = new Credentials(
+            {
+                path: this._filename,
+            },
+            masterPassword
+        );
+        const fds = new FileDatasource(creds);
+        return fds.load(creds).then(({ Format, history }) => {
+            const sourceVault = Vault.createFromHistory(history, Format);
+            const newVault = new Vault(Format);
+            consumeVaultFacade(newVault, createVaultFacade(sourceVault));
+            return newVault;
         });
-        return archive;
-    });
+    }
 }
 
-module.exports = importFromButtercup;
+module.exports = ButtercupImporter;
