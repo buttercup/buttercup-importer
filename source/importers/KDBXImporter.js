@@ -36,8 +36,8 @@ class KDBXImporter {
                 );
                 return kdbxweb.Kdbx.load(toArrayBuffer(baseFile), credentials);
             })
-            .then((db) => db.saveXml())
-            .then((xmlString) => {
+            .then(db => db.saveXml())
+            .then(xmlString => {
                 const xmlImporter = new KeePass2XMLImporter(xmlString);
                 return xmlImporter.export();
             });

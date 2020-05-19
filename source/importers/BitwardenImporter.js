@@ -11,13 +11,13 @@ class BitwardenImporter {
 
     export() {
         const groups = {};
-        return pify(fs.readFile)(this._filename, "utf8").then((contents) => {
+        return pify(fs.readFile)(this._filename, "utf8").then(contents => {
             const vault = new Vault();
             const bwJson = JSON.parse(contents);
 
             // Create mapping between folder ids and groups
             groups[null] = vault.createGroup(DEFAULT_GROUP);
-            bwJson.folders.forEach((bitwardenFolder) => {
+            bwJson.folders.forEach(bitwardenFolder => {
                 if (bitwardenFolder.name == "General") {
                     groups[bitwardenFolder.id] = groups[null];
                 } else {
@@ -27,7 +27,7 @@ class BitwardenImporter {
                 }
             });
 
-            bwJson.items.forEach((bitwardenItem) => {
+            bwJson.items.forEach(bitwardenItem => {
                 const group = groups[bitwardenItem.folderId];
 
                 const entry = group.createEntry(bitwardenItem.name);
@@ -52,7 +52,7 @@ class BitwardenImporter {
                 }
 
                 if ("fields" in bitwardenItem) {
-                    bitwardenItem.fields.forEach((itemField) => {
+                    bitwardenItem.fields.forEach(itemField => {
                         entry.setProperty(itemField.name, itemField.value);
                     });
                 }

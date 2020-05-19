@@ -20,7 +20,7 @@ function extractString(obj) {
 function processGroup(group, archive, currentGroup) {
     var subgroups = group.Group || [];
     currentGroup = currentGroup || archive;
-    subgroups.forEach(function (subgroup) {
+    subgroups.forEach(function(subgroup) {
         var buttercupGroup = currentGroup.createGroup(
             extractString(subgroup.Name)
         );
@@ -28,10 +28,10 @@ function processGroup(group, archive, currentGroup) {
             processGroup(subgroup, archive, buttercupGroup);
         }
         if (subgroup.Entry) {
-            subgroup.Entry.forEach(function (subentry) {
+            subgroup.Entry.forEach(function(subentry) {
                 var entry = buttercupGroup.createEntry();
                 if (subentry.String) {
-                    subentry.String.forEach(function (keyValuePair) {
+                    subentry.String.forEach(function(keyValuePair) {
                         var actualKey = extractString(keyValuePair.Key),
                             actualValue = extractString(keyValuePair.Value),
                             friendlyKey = actualKey.toLowerCase();
@@ -71,7 +71,7 @@ class KeePass2XMLImporter {
                 resolve(result);
             });
         })
-            .then(function (keepassJS) {
+            .then(function(keepassJS) {
                 const vault = new Vault();
                 let rootGroup;
                 try {
@@ -82,7 +82,7 @@ class KeePass2XMLImporter {
                 processGroup(rootGroup || {}, vault);
                 return vault;
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 throw new VError(err, "Failed parsing KDBX vault");
             });
     }
@@ -95,9 +95,9 @@ class KeePass2XMLImporter {
  * @memberof KeePass2XMLImporter
  * @static
  */
-KeePass2XMLImporter.loadFromFile = function (filename) {
-    return new Promise(function (resolve, reject) {
-        fs.readFile(filename, function (err, data) {
+KeePass2XMLImporter.loadFromFile = function(filename) {
+    return new Promise(function(resolve, reject) {
+        fs.readFile(filename, function(err, data) {
             if (err) {
                 return reject(err);
             }

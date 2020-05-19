@@ -6,8 +6,7 @@ const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/test.kdbx.xml");
 
 describe("KeePass2XMLImporter", function() {
     beforeEach(function() {
-        return KeePass2XMLImporter
-            .loadFromFile(EXAMPLE_VAULT)
+        return KeePass2XMLImporter.loadFromFile(EXAMPLE_VAULT)
             .then(importer => importer.export())
             .then(vault => {
                 this.vault = vault;
@@ -29,13 +28,21 @@ describe("KeePass2XMLImporter", function() {
     });
 
     it("exports expected entries", function() {
-        const entry = this.vault.findEntriesByProperty("title", "Buttercup test")[0];
+        const entry = this.vault.findEntriesByProperty(
+            "title",
+            "Buttercup test"
+        )[0];
         expect(entry).to.be.an.instanceOf(Entry);
     });
 
     it("exports expected properties", function() {
-        const entry = this.vault.findEntriesByProperty("title", "Buttercup test")[0];
-        expect(entry.getProperty("Notes")).to.equal("Hello. My name is Inigo Montoya. You killed my father. Prepare to die.");
+        const entry = this.vault.findEntriesByProperty(
+            "title",
+            "Buttercup test"
+        )[0];
+        expect(entry.getProperty("Notes")).to.equal(
+            "Hello. My name is Inigo Montoya. You killed my father. Prepare to die."
+        );
         expect(entry.getProperty("password")).to.equal("test password");
     });
 });

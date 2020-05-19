@@ -14,9 +14,9 @@ class LastPassImporter {
 
     export() {
         const groups = {};
-        return readFile(this._filename, "utf8").then((contents) => {
+        return readFile(this._filename, "utf8").then(contents => {
             const vault = new Vault();
-            csvparse(contents, { columns: true }).forEach((lastpassItem) => {
+            csvparse(contents, { columns: true }).forEach(lastpassItem => {
                 const groupName = lastpassItem.grouping || DEFAULT_GROUP;
                 const group =
                     groups[groupName] ||

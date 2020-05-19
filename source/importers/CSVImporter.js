@@ -44,9 +44,9 @@ class CSVImporter {
  * @memberof CSVImporter
  * @static
  */
-CSVImporter.loadFromFile = function (filename) {
+CSVImporter.loadFromFile = function(filename) {
     return readFile(filename, "utf8").then(
-        (data) => new CSVImporter(data, path.basename(filename).split(".")[0])
+        data => new CSVImporter(data, path.basename(filename).split(".")[0])
     );
 };
 

@@ -16,10 +16,10 @@ class ButtercupCSVImporter {
     export() {
         return Promise.resolve().then(() => {
             const vault = new Vault();
-            csvparse(this._csvData, { columns: true }).forEach((bcupItem) => {
+            csvparse(this._csvData, { columns: true }).forEach(bcupItem => {
                 const {
                     ["!group_id"]: groupID,
-                    ["!group_name"]: groupName,
+                    ["!group_name"]: groupName
                 } = bcupItem;
                 let group = vault.findGroupByID(groupID);
                 if (!group) {
@@ -28,9 +28,9 @@ class ButtercupCSVImporter {
                 group.setTitle(groupName);
                 const entry = group.createEntry(bcupItem.title);
                 Object.keys(bcupItem)
-                    .filter((key) => /^\!.+/.test(key) === false)
-                    .filter((key) => NON_COPY_KEYS.indexOf(key) === -1)
-                    .forEach((key) => {
+                    .filter(key => /^\!.+/.test(key) === false)
+                    .filter(key => NON_COPY_KEYS.indexOf(key) === -1)
+                    .forEach(key => {
                         entry.setProperty(key, bcupItem[key]);
                     });
             });
@@ -46,9 +46,9 @@ class ButtercupCSVImporter {
  * @memberof ButtercupCSVImporter
  * @static
  */
-ButtercupCSVImporter.loadFromFile = function (filename) {
+ButtercupCSVImporter.loadFromFile = function(filename) {
     return readFile(filename, "utf8").then(
-        (data) => new ButtercupCSVImporter(data)
+        data => new ButtercupCSVImporter(data)
     );
 };
 

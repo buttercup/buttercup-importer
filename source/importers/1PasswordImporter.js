@@ -17,9 +17,9 @@ const readFile = pify(fs.readFile);
  */
 function mapTreeLevelToVault(parentVaultItem, treeLevel) {
     const group = parentVaultItem.createGroup(treeLevel.title);
-    treeLevel.entries.forEach(function (rawEntry) {
+    treeLevel.entries.forEach(function(rawEntry) {
         const entry = group.createEntry(rawEntry.title);
-        Object.keys(rawEntry.meta).forEach(function (metaKey) {
+        Object.keys(rawEntry.meta).forEach(function(metaKey) {
             entry.setProperty(metaKey, rawEntry.meta[metaKey]);
         });
         if (rawEntry.username) {
@@ -28,11 +28,11 @@ function mapTreeLevelToVault(parentVaultItem, treeLevel) {
         if (rawEntry.password) {
             entry.setProperty("password", rawEntry.password);
         }
-        Object.keys(rawEntry.attributes).forEach(function (attributeKey) {
+        Object.keys(rawEntry.attributes).forEach(function(attributeKey) {
             entry.setAttribute(attributeKey, rawEntry.attributes[attributeKey]);
         });
     });
-    treeLevel.groups.forEach(function (rawGroup) {
+    treeLevel.groups.forEach(function(rawGroup) {
         mapTreeLevelToVault(group, rawGroup);
     });
 }
@@ -73,8 +73,8 @@ class OnePasswordImporter {
      */
     export() {
         return readFile(this.path, "utf8")
-            .then((contents) => convert1pifToJSON(contents))
-            .then(function (pifTree) {
+            .then(contents => convert1pifToJSON(contents))
+            .then(function(pifTree) {
                 const vault = new Vault();
                 mapTreeLevelToVault(vault, pifTree);
                 return vault;

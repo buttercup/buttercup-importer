@@ -4,7 +4,7 @@ const {
     Vault,
     consumeVaultFacade,
     createVaultFacade,
-    init,
+    init
 } = require("buttercup");
 
 class ButtercupImporter {
@@ -22,7 +22,7 @@ class ButtercupImporter {
         init();
         const creds = new Credentials(
             {
-                path: this._filename,
+                path: this._filename
             },
             masterPassword
         );
