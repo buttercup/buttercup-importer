@@ -16,27 +16,27 @@ describe("ButtercupImporter", function() {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    // it("exports expected groups", function() {
-    //     const groups = this.vault.getGroups().map(g => g.getTitle());
-    //     expect(groups).to.contain("General");
-    // });
+    it("exports expected groups", function() {
+        const [general] = this.vault.findGroupsByTitle("General");
+        expect(general).to.be.an.instanceOf(
+            Group,
+            "General group should exist"
+        );
+        const [sub] = general.getGroups();
+        expect(sub).to.be.an.instanceOf(
+            Group,
+            "Sub group should exist under General"
+        );
+    });
 
-    // it("exports expected entries", function() {
-    //     const allEntries = this.vault.findEntriesByProperty("title", /.*/);
-    //     expect(allEntries).to.have.lengthOf(4);
-    // });
-
-    // it("does not export entries with empty Notes", function() {
-    //     const [entry1] = this.vault.findEntriesByProperty("title", "bar.com");
-    //     const [entry2] = this.vault.findEntriesByProperty("title", "fizz.com");
-    //     expect(entry1.getProperty("Notes")).to.be.undefined;
-    //     expect(entry2.getProperty("Notes")).to.be.undefined;
-    // });
-
-    // it("exports multi-line notes", function() {
-    //     const [entry] = this.vault.findEntriesByProperty("title", "baz.com");
-    //     expect(entry.getProperty("Notes")).to.equal(
-    //         "This is a\nmultiline string"
-    //     );
-    // });
+    it("exports expected entries", function() {
+        const allEntries = this.vault.findEntriesByProperty("title", /.*/);
+        expect(allEntries).to.have.lengthOf(1);
+        const [entry] = allEntries;
+        expect(entry.getProperty("title")).to.equal("Test Entry");
+        expect(entry.getProperty("username")).to.equal("user@site.com");
+        expect(entry.getProperty("password")).to.equal(
+            "W6dV-_71OpO~%;WZz0+*czcqay+&=;8;khc"
+        );
+    });
 });
