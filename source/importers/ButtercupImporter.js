@@ -52,43 +52,62 @@ function updateFacadeItemIDs(vaultFacade) {
 }
 
 class ButtercupImporter {
-    constructor(filename) {
-        this._filename = filename;
+    /**
+     * Create a new Buttercup importer
+     * @param {Vault} sourceVault Source Buttercup vault
+     */
+    constructor(sourceVault) {
+        this._source = sourceVault;
+        this._Format = sourceVault.format.getFormat();
     }
 
     /**
      * Export as a new Buttercup vault
-     * @param {String} masterPassword Source vault master password
      * @returns {Promise.<Vault>}
      * @memberof ButtercupImporter
      */
-    export(masterPassword) {
+    export() {
         init();
-        const creds = new Credentials(
-            {
-                datasource: {
-                    path: this._filename
-                }
-            },
-            masterPassword
-        );
-        const fds = new FileDatasource(creds);
-        return fds
-            .load(Credentials.fromPassword(masterPassword))
-            .then(({ Format, history }) => {
-                const sourceVault = Vault.createFromHistory(history, Format);
-                const newVault = new Vault(Format);
-                const facade = updateFacadeItemIDs(
-                    stripTrash(createVaultFacade(sourceVault))
-                );
-                if (facade._ver >= FACADE_MIN_VER === false) {
-                    throw new Error("Invalid or old facade version");
-                }
-                facade.id = newVault.id;
-                consumeVaultFacade(newVault, facade);
-                return newVault;
-            });
+        return Promise.resolve().then(() => {
+            const newVault = new Vault(this._Format);
+            const facade = updateFacadeItemIDs(
+                stripTrash(createVaultFacade(this._source))
+            );
+            if (facade._ver >= FACADE_MIN_VER === false) {
+                throw new Error("Invalid or old facade version");
+            }
+            facade.id = newVault.id;
+            consumeVaultFacade(newVault, facade);
+            return newVault;
+        });
     }
 }
+
+/**
+ * Load an importer from a vault file
+ * @param {String} filename The vault path
+ * @param {String} masterPassword The vault password
+ * @returns {Promise.<ButtercupImporter>}
+ * @memberof ButtercupImporter
+ * @static
+ */
+ButtercupImporter.loadFromFile = function(filename, masterPassword) {
+    init();
+    const creds = new Credentials(
+        {
+            datasource: {
+                path: filename
+            }
+        },
+        masterPassword
+    );
+    const fds = new FileDatasource(creds);
+    return fds
+        .load(Credentials.fromPassword(masterPassword))
+        .then(({ Format, history }) => {
+            const sourceVault = Vault.createFromHistory(history, Format);
+            return new ButtercupImporter(sourceVault);
+        });
+};
 
 module.exports = ButtercupImporter;

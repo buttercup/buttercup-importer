@@ -18,30 +18,52 @@ function toArrayBuffer(buffer) {
 }
 
 class KDBXImporter {
-    constructor(filename, keyfile = null) {
-        this._filename = filename;
-        this._keyFilename = keyfile;
+    /**
+     * Create a new KDBX importer
+     * @param {kdbxweb.Kdbx} kdbxDB KDBX database instance
+     */
+    constructor(kdbxDB) {
+        this._db = kdbxDB;
     }
 
-    export(password) {
-        const kdbxFiles = [readFile(this._filename)];
-        if (this._keyFilename) {
-            kdbxFiles.push(readFile(this._keyFilename));
-        }
-        return Promise.all(kdbxFiles)
-            .then(([baseFile, keyFile]) => {
-                const credentials = new kdbxweb.Credentials(
-                    kdbxweb.ProtectedValue.fromString(password),
-                    keyFile ? toArrayBuffer(keyFile) : undefined
-                );
-                return kdbxweb.Kdbx.load(toArrayBuffer(baseFile), credentials);
-            })
-            .then(db => db.saveXml())
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof KDBXImporter
+     */
+    export() {
+        return Promise.resolve()
+            .then(() => this._db.saveXml())
             .then(xmlString => {
                 const xmlImporter = new KeePass2XMLImporter(xmlString);
                 return xmlImporter.export();
             });
     }
 }
+
+/**
+ * Load an importer from a KDBX file
+ * @param {String} filename The file to load from
+ * @param {String} password The vault password
+ * @param {String=} keyfile The key filename, if applicable
+ * @returns {Promise.<KDBXImporter>}
+ * @static
+ * @memberof KDBXImporter
+ */
+KDBXImporter.loadFromFile = function(filename, password, keyfile) {
+    const kdbxFiles = [readFile(filename)];
+    if (keyfile) {
+        kdbxFiles.push(readFile(keyfile));
+    }
+    return Promise.all(kdbxFiles)
+        .then(([baseFile, keyFile]) => {
+            const credentials = new kdbxweb.Credentials(
+                kdbxweb.ProtectedValue.fromString(password),
+                keyFile ? toArrayBuffer(keyFile) : undefined
+            );
+            return kdbxweb.Kdbx.load(toArrayBuffer(baseFile), credentials);
+        })
+        .then(db => new KDBXImporter(db));
+};
 
 module.exports = KDBXImporter;

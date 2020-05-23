@@ -2,18 +2,29 @@ const fs = require("fs");
 const pify = require("pify");
 const { Vault } = require("buttercup");
 
+const readFile = pify(fs.readFile);
+
 const DEFAULT_GROUP = "General";
 
 class BitwardenImporter {
-    constructor(filename) {
-        this._filename = filename;
+    /**
+     * Create a new Bitwarden importer
+     * @param {String} data Raw JSON data of a Bitwarden vault export
+     */
+    constructor(data) {
+        this._data = data;
     }
 
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof BitwardenImporter
+     */
     export() {
         const groups = {};
-        return pify(fs.readFile)(this._filename, "utf8").then(contents => {
+        return Promise.resolve().then(() => {
             const vault = new Vault();
-            const bwJson = JSON.parse(contents);
+            const bwJson = JSON.parse(this._data);
 
             // Create mapping between folder ids and groups
             groups[null] = vault.createGroup(DEFAULT_GROUP);
@@ -62,5 +73,16 @@ class BitwardenImporter {
         });
     }
 }
+
+/**
+ * Load an importer from a file
+ * @param {String} filename The file to load from
+ * @returns {Promise.<BitwardenImporter>}
+ * @static
+ * @memberof BitwardenImporter
+ */
+BitwardenImporter.loadFromFile = function(filename) {
+    return readFile(filename, "utf8").then(data => new BitwardenImporter(data));
+};
 
 module.exports = BitwardenImporter;

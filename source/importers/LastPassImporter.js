@@ -3,20 +3,29 @@ const pify = require("pify");
 const { Vault } = require("buttercup");
 const csvparse = require("csv-parse/lib/sync");
 
-const DEFAULT_GROUP = "General";
-
 const readFile = pify(fs.readFile);
 
+const DEFAULT_GROUP = "General";
+
 class LastPassImporter {
-    constructor(filename) {
-        this._filename = filename;
+    /**
+     * Create a new LastPass importer
+     * @param {String} data Raw CSV data of a LastPass vault export
+     */
+    constructor(data) {
+        this._data = data;
     }
 
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof LastPassImporter
+     */
     export() {
         const groups = {};
-        return readFile(this._filename, "utf8").then(contents => {
+        return Promise.resolve().then(() => {
             const vault = new Vault();
-            csvparse(contents, { columns: true }).forEach(lastpassItem => {
+            csvparse(this._data, { columns: true }).forEach(lastpassItem => {
                 const groupName = lastpassItem.grouping || DEFAULT_GROUP;
                 const group =
                     groups[groupName] ||
@@ -34,5 +43,18 @@ class LastPassImporter {
         });
     }
 }
+
+/**
+ * Load the importer from a file
+ * @param {String} filename The source filename
+ * @returns {Promise.<LastPassImporter>}
+ * @static
+ * @memberof LastPassImporter
+ */
+LastPassImporter.loadFromFile = function(filename) {
+    return readFile(filename, "utf8").then(contents => {
+        return new LastPassImporter(contents);
+    });
+};
 
 module.exports = LastPassImporter;

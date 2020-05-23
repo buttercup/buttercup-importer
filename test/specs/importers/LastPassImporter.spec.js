@@ -6,10 +6,11 @@ const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/lastpass.csv");
 
 describe("LastPassImporter", function() {
     beforeEach(function() {
-        const importer = new LastPassImporter(EXAMPLE_VAULT);
-        return importer.export().then(vault => {
-            this.vault = vault;
-        });
+        return LastPassImporter.loadFromFile(EXAMPLE_VAULT)
+            .then(importer => importer.export())
+            .then(vault => {
+                this.vault = vault;
+            });
     });
 
     it("creates a vault instance", function() {

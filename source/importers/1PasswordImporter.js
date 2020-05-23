@@ -1,10 +1,8 @@
 const path = require("path");
 const fs = require("fs");
-
 const pify = require("pify");
 const isDir = require("is-dir").sync;
 const Buttercup = require("buttercup");
-
 const { convert1pifToJSON } = require("../tools/1password.js");
 
 const { Vault } = Buttercup;
@@ -14,6 +12,7 @@ const readFile = pify(fs.readFile);
  * Map a 1PIF JSON tree back to an archive
  * @param {Vault|Group} parentVaultItem A Buttercup Vault or Group instance
  * @param {Object} treeLevel A JSON group
+ * @private
  */
 function mapTreeLevelToVault(parentVaultItem, treeLevel) {
     const group = parentVaultItem.createGroup(treeLevel.title);
@@ -41,6 +40,7 @@ function mapTreeLevelToVault(parentVaultItem, treeLevel) {
  * Locate the true 1pif file in a path (may be directory)
  * @param {String} filePath Path to the directory or 1pif file
  * @returns {String} Resolve file path
+ * @private
  */
 function resolve1pifFile(filePath) {
     if (isDir(filePath)) {
@@ -52,34 +52,39 @@ function resolve1pifFile(filePath) {
 class OnePasswordImporter {
     /**
      * Constructor for the importer
-     * @param {String} onePIFPath The 1pif file path
+     * @param {String} onePIFData 1pif file data
      */
-    constructor(onePIFPath) {
-        this._path = resolve1pifFile(onePIFPath);
+    constructor(onePIFData) {
+        this._data = onePIFData;
     }
 
     /**
-     * The 1pif file path
-     * @type {String}
-     */
-    get path() {
-        return this._path;
-    }
-
-    /**
-     * Export the 1pif data to a Buttercup Archive instance
-     * @returns {Promise.<Archive>} A promise that resolves with a Buttercup
-     * 	Archive instance
+     * Export the 1pif data to a Buttercup Vault instance
+     * @returns {Promise.<Vault>} A promise that resolves with a Buttercup
+     * 	Vault instance
      */
     export() {
-        return readFile(this.path, "utf8")
-            .then(contents => convert1pifToJSON(contents))
-            .then(function(pifTree) {
-                const vault = new Vault();
-                mapTreeLevelToVault(vault, pifTree);
-                return vault;
-            });
+        return Promise.resolve().then(() => {
+            const pifTree = convert1pifToJSON(this._data);
+            const vault = new Vault();
+            mapTreeLevelToVault(vault, pifTree);
+            return vault;
+        });
     }
 }
+
+/**
+ * Load an importer from a file
+ * @param {String} filename The file to load from
+ * @returns {Promise.<OnePasswordImporter>}
+ * @static
+ * @memberof OnePasswordImporter
+ */
+OnePasswordImporter.loadFromFile = function(filename) {
+    const absolutePath = resolve1pifFile(filename);
+    return readFile(absolutePath, "utf8").then(
+        data => new OnePasswordImporter(data)
+    );
+};
 
 module.exports = OnePasswordImporter;

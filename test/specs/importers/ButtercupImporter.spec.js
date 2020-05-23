@@ -6,10 +6,11 @@ const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/test.bcup");
 
 describe("ButtercupImporter", function() {
     beforeEach(function() {
-        const importer = new ButtercupImporter(EXAMPLE_VAULT);
-        return importer.export("passw0rd").then(vault => {
-            this.vault = vault;
-        });
+        return ButtercupImporter.loadFromFile(EXAMPLE_VAULT, "passw0rd")
+            .then(importer => importer.export())
+            .then(vault => {
+                this.vault = vault;
+            });
     });
 
     it("creates a vault instance", function() {

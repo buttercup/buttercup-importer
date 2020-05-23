@@ -52,6 +52,10 @@ function processGroup(group, archive, currentGroup) {
 }
 
 class KeePass2XMLImporter {
+    /**
+     * Create a new KeePass XML importer
+     * @param {String} xmlContent The XML content to import from
+     */
     constructor(xmlContent) {
         this._content = xmlContent;
     }

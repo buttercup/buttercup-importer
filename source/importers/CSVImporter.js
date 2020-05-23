@@ -7,11 +7,21 @@ const csvparse = require("csv-parse/lib/sync");
 const readFile = pify(fs.readFile);
 
 class CSVImporter {
+    /**
+     * Create a new CSV importer
+     * @param {String} csvData The source CSV data
+     * @param {String=} name Name for the imported folder
+     */
     constructor(csvData, name = "Untitled CSV import") {
         this._csvData = csvData;
         this._groupName = name;
     }
 
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof CSVImporter
+     */
     export() {
         return Promise.resolve().then(() => {
             const vault = new Vault();

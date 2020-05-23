@@ -9,10 +9,19 @@ const ROOT_GROUP_ID = "0";
 const readFile = pify(fs.readFile);
 
 class ButtercupCSVImporter {
+    /**
+     * Create a new Buttercup CSV importer
+     * @param {String} csvData Raw CSV data of a Buttercup vault export
+     */
     constructor(csvData) {
         this._csvData = csvData;
     }
 
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof ButtercupCSVImporter
+     */
     export() {
         return Promise.resolve().then(() => {
             const vault = new Vault();

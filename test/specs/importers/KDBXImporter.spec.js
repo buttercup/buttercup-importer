@@ -33,17 +33,19 @@ const EXAMPLE_V4_ADVANCED_KEY = path.resolve(
 describe("KDBXImporter", function() {
     describe("KDBX (pre-v4)", function() {
         beforeEach(function() {
-            const simpleImporter = new KDBXImporter(EXAMPLE_LEGACY);
-            const advancedImporter = new KDBXImporter(
-                EXAMPLE_LEGACY_ADVANCED,
-                EXAMPLE_LEGACY_ADVANCED_KEY
-            );
             return Promise.all([
-                simpleImporter.export(EXAMPLE_KDBX_PASSWORD),
-                advancedImporter.export(EXAMPLE_KDBX_PASSWORD)
-            ]).then(([simple, advanced]) => {
-                this.simpleVault = simple;
-                this.advancedVault = advanced;
+                KDBXImporter.loadFromFile(
+                    EXAMPLE_LEGACY,
+                    EXAMPLE_KDBX_PASSWORD
+                ).then(importer => importer.export()),
+                KDBXImporter.loadFromFile(
+                    EXAMPLE_LEGACY_ADVANCED,
+                    EXAMPLE_KDBX_PASSWORD,
+                    EXAMPLE_LEGACY_ADVANCED_KEY
+                ).then(importer => importer.export())
+            ]).then(([simpleVault, advancedVault]) => {
+                this.simpleVault = simpleVault;
+                this.advancedVault = advancedVault;
             });
         });
 
@@ -76,17 +78,19 @@ describe("KDBXImporter", function() {
 
     describe("KDBX v4", function() {
         beforeEach(function() {
-            const simpleImporter = new KDBXImporter(EXAMPLE_V4);
-            const advancedImporter = new KDBXImporter(
-                EXAMPLE_V4_ADVANCED,
-                EXAMPLE_V4_ADVANCED_KEY
-            );
             return Promise.all([
-                simpleImporter.export(EXAMPLE_KDBX_PASSWORD),
-                advancedImporter.export(EXAMPLE_KDBX_PASSWORD)
-            ]).then(([simple, advanced]) => {
-                this.simpleVault = simple;
-                this.advancedVault = advanced;
+                KDBXImporter.loadFromFile(
+                    EXAMPLE_V4,
+                    EXAMPLE_KDBX_PASSWORD
+                ).then(importer => importer.export()),
+                KDBXImporter.loadFromFile(
+                    EXAMPLE_V4_ADVANCED,
+                    EXAMPLE_KDBX_PASSWORD,
+                    EXAMPLE_V4_ADVANCED_KEY
+                ).then(importer => importer.export())
+            ]).then(([simpleVault, advancedVault]) => {
+                this.simpleVault = simpleVault;
+                this.advancedVault = advancedVault;
             });
         });
 
