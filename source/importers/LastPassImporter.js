@@ -7,6 +7,10 @@ const readFile = pify(fs.readFile);
 
 const DEFAULT_GROUP = "General";
 
+/**
+ * Importer for LastPass CSV dumps
+ * @memberof module:ButtercupImporter
+ */
 class LastPassImporter {
     /**
      * Create a new LastPass importer

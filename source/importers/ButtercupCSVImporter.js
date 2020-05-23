@@ -8,6 +8,10 @@ const ROOT_GROUP_ID = "0";
 
 const readFile = pify(fs.readFile);
 
+/**
+ * Importer for Buttercup CSV exports
+ * @memberof module:ButtercupImporter
+ */
 class ButtercupCSVImporter {
     /**
      * Create a new Buttercup CSV importer

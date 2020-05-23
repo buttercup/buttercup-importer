@@ -51,6 +51,10 @@ function updateFacadeItemIDs(vaultFacade) {
     return vaultFacade;
 }
 
+/**
+ * Importer for Buttercup vaults
+ * @memberof module:ButtercupImporter
+ */
 class ButtercupImporter {
     /**
      * Create a new Buttercup importer

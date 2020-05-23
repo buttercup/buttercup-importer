@@ -6,6 +6,10 @@ const csvparse = require("csv-parse/lib/sync");
 
 const readFile = pify(fs.readFile);
 
+/**
+ * Importer for CSV files
+ * @memberof module:ButtercupImporter
+ */
 class CSVImporter {
     /**
      * Create a new CSV importer

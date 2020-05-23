@@ -17,6 +17,10 @@ function toArrayBuffer(buffer) {
     return ab;
 }
 
+/**
+ * Importer for KDBX vaults (<= v4)
+ * @memberof module:ButtercupImporter
+ */
 class KDBXImporter {
     /**
      * Create a new KDBX importer

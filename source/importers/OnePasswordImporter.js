@@ -49,6 +49,10 @@ function resolve1pifFile(filePath) {
     return filePath;
 }
 
+/**
+ * Importer for 1Password vaults
+ * @memberof module:ButtercupImporter
+ */
 class OnePasswordImporter {
     /**
      * Constructor for the importer

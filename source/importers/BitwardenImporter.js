@@ -6,6 +6,10 @@ const readFile = pify(fs.readFile);
 
 const DEFAULT_GROUP = "General";
 
+/**
+ * Importer for Bitwarden vaults
+ * @memberof module:ButtercupImporter
+ */
 class BitwardenImporter {
     /**
      * Create a new Bitwarden importer

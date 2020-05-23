@@ -1,40 +1,23 @@
-// import "core-js/stable";
+const BitwardenImporter = require("./importers/BitwardenImporter.js");
+const ButtercupCSVImporter = require("./importers/OnePasswordImporter.js");
+const ButtercupImporter = require("./importers/ButtercupImporter.js");
+const CSVImporter = require("./importers/CSVImporter.js");
+const KDBXImporter = require("./importers/KDBXImporter.js");
+const KeePass2XMLImporter = require("./importers/KeePass2XMLImporter.js");
+const LastPassImporter = require("./importers/LastPassImporter.js");
+const OnePasswordImporter = require("./importers/OnePasswordImporter.js");
 
-// import OnePasswordImporter from "./importers/1PasswordImporter.js";
-// import KDBXImporter from "./importers/KDBXImporter.js";
+/**
+ * @module ButtercupImporter
+ */
 
-// export { default as KDBXImporter } from "./importers/KDBXImporter.js";
-// export {
-//     default as KeePass2XMLImporter
-// } from "./importers/KeePass2XMLImporter.js";
-
-// /**
-//  * Import an exported 1Password (1pif) archive
-//  * @param {String} pifPath The path to the 1password 1pif file
-//  * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-//  */
-// export function importFrom1PIF(pifPath) {
-//     const importer = new OnePasswordImporter(pifPath);
-//     return importer.export();
-// }
-
-// /**
-//  * Import a Keepass 2 KDBX archive
-//  * @param {String} kdbxFile A KDBX archive filename
-//  * @param {String} password The password for the archive (loading KDBX and saving BCUP)
-//  * @param {String} [keyFile] The key file for the archive (optional)
-//  * @returns {Promise.<Archive>} A promise that resolves with the imported archive
-//  */
-// export function importFromKDBX(kdbxFile, password, keyFile) {
-//     const importer = new KDBXImporter(kdbxFile);
-//     return importer.export(password, keyFile);
-// }
-
-// export { default as importFromLastPass } from "./importers/LastPassImporter.js";
-// export {
-//     default as importFromButtercup
-// } from "./importers/ButtercupImporter.js";
-// export {
-//     default as importFromBitwarden
-// } from "./importers/BitwardenImporter.js";
-// export { default as importFromCSV } from "./importers/CSVImporter.js";
+module.exports = {
+    BitwardenImporter,
+    ButtercupCSVImporter,
+    ButtercupImporter,
+    CSVImporter,
+    KDBXImporter,
+    KeePass2XMLImporter,
+    LastPassImporter,
+    OnePasswordImporter
+};

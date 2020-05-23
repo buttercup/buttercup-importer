@@ -51,6 +51,10 @@ function processGroup(group, archive, currentGroup) {
     });
 }
 
+/**
+ * Importer for KeePass XML exports
+ * @memberof module:ButtercupImporter
+ */
 class KeePass2XMLImporter {
     /**
      * Create a new KeePass XML importer

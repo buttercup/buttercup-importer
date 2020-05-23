@@ -1,5 +1,5 @@
 const path = require("path");
-const OnePasswordImporter = require("../../../dist/importers/1PasswordImporter.js");
+const OnePasswordImporter = require("../../../dist/importers/OnePasswordImporter.js");
 const { Entry, Group, Vault } = require("buttercup");
 
 const EXAMPLE_VAULT = path.resolve(
@@ -7,7 +7,7 @@ const EXAMPLE_VAULT = path.resolve(
     "../../resources/test-1password.1pif"
 );
 
-describe("1PasswordImporter", function() {
+describe("OnePasswordImporter", function() {
     beforeEach(function() {
         return OnePasswordImporter.loadFromFile(EXAMPLE_VAULT)
             .then(importer => importer.export())
