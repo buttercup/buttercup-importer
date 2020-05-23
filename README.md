@@ -21,6 +21,8 @@ const { KDBXImporter } = require("@buttercup/importer");
 KDBXImporter.loadFromFile("...");
 ```
 
+Check out the [API documentation](API.md).
+
 ### Supported platforms
 The importer requires Node **8** or higher.
 
