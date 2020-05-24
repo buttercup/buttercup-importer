@@ -69,7 +69,7 @@ function createGroupSkeleton(id, title = "Untitled Group") {
 function mergeItemsToTree(groups, entries, currentGroup) {
     const thisGroup = currentGroup || createGroupSkeleton(null);
     if (!currentGroup) {
-        thisGroup.title = "Imported 1password archive";
+        thisGroup.title = "Imported 1password vault";
     }
     Object.values(entries).forEach(function(entry) {
         if (

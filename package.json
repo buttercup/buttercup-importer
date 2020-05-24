@@ -4,13 +4,15 @@
   "description": "Buttercup archive importer for other password manager archives",
   "main": "dist/buttercup-importer.js",
   "scripts": {
-    "build": "webpack --mode=production",
+    "build": "npm run build:node",
+    "build:node": "babel source --out-dir dist --minified --delete-dir-on-start --verbose",
     "dev": "webpack --mode=development --watch --progress",
-    "format": "prettier --write '{source,tests}/**/*.js'",
-    "precommit": "lint-staged",
+    "docs": "jsdoc2md 'source/**/*.js' > API.md",
+    "format": "prettier --write '{source,test}/**/*.js'",
     "prepublishOnly": "npm run build",
-    "test": "npm run build && nodeunit tests/cli",
-    "test:ci": "npm run build && nodeunit tests/cli --reporter junit --output build"
+    "test": "run-s build test:specs test:format",
+    "test:format": "prettier-check '{source,test}/**/*.js'",
+    "test:specs": "nyc mocha -r test/index.js 'test/specs/**/*.spec.js'"
   },
   "husky": {
     "hooks": {
@@ -18,9 +20,8 @@
     }
   },
   "lint-staged": {
-    "{source,tests}/**/*.js": [
-      "prettier --write",
-      "git add"
+    "{source,test}/**/*.js": [
+      "prettier --write"
     ]
   },
   "repository": {
@@ -33,7 +34,8 @@
     "import",
     "lastpass",
     "1password",
-    "password"
+    "password",
+    "bitwarden"
   ],
   "author": "Perry Mitchell <perry@perrymitchell.net>",
   "license": "MIT",
@@ -42,31 +44,34 @@
   },
   "homepage": "https://github.com/buttercup-pw/buttercup-importer#readme",
   "dependencies": {
-    "argon2": "^0.26.1",
-    "kdbxweb": "^1.5.8"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "@buttercup/exporter": "^0.1.0",
-    "arraybuffer-to-string": "^1.0.2",
-    "babel-loader": "^8.1.0",
-    "buttercup": "^2.16.1",
-    "core-js": "^3.6.4",
+    "argon2": "^0.26.2",
     "csv-parse": "^4.8.8",
-    "husky": "^4.2.3",
     "is-dir": "^1.0.0",
-    "lint-staged": "^10.1.1",
-    "nodeunit": "^0.11.3",
+    "kdbxweb": "^1.5.8",
     "pify": "^5.0.0",
-    "prettier": "^2.0.2",
     "typedarray-to-buffer": "^3.1.5",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
+    "verror": "^1.10.0",
     "xml2js": "^0.4.23"
   },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/preset-env": "^7.9.0",
+    "@buttercup/exporter": "^1.0.0",
+    "buttercup": "4.0.0-r09",
+    "chai": "^4.2.0",
+    "husky": "^4.2.3",
+    "jsdoc-to-markdown": "^5.0.3",
+    "lint-staged": "^10.1.1",
+    "mocha": "^7.1.2",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.0.1",
+    "prettier": "^1.19.1",
+    "prettier-check": "^2.0.0",
+    "sinon": "^9.0.2"
+  },
   "peerDependencies": {
-    "buttercup": ">= 2.3.0"
+    "buttercup": ">= 4.0.0"
   }
 }

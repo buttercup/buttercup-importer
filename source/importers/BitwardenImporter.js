@@ -1,64 +1,92 @@
 const fs = require("fs");
-
 const pify = require("pify");
-const { Archive } = require("buttercup");
+const { Vault } = require("buttercup");
 
-const defaultGroup = "General";
+const readFile = pify(fs.readFile);
+
+const DEFAULT_GROUP = "General";
 
 /**
- * Import an exported Bitwarden JSON archive
- * @param {String} bwJsonPath The path to the Bitwarden JSON file
- * @returns {Promise.<Archive>} A promise that resolves with the imported archive
+ * Importer for Bitwarden vaults
+ * @memberof module:ButtercupImporter
  */
-const importFromBitwarden = bwJsonPath => {
-    const groups = {};
+class BitwardenImporter {
+    /**
+     * Create a new Bitwarden importer
+     * @param {String} data Raw JSON data of a Bitwarden vault export
+     */
+    constructor(data) {
+        this._data = data;
+    }
 
-    return pify(fs.readFile)(bwJsonPath, "utf8").then(contents => {
-        const archive = new Archive();
-        const bwJson = JSON.parse(contents);
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof BitwardenImporter
+     */
+    export() {
+        const groups = {};
+        return Promise.resolve().then(() => {
+            const vault = new Vault();
+            const bwJson = JSON.parse(this._data);
 
-        // Create mapping between folder ids and groups
-        groups[null] = archive.createGroup(defaultGroup);
-        bwJson.folders.forEach(bitwardenFolder => {
-            if (bitwardenFolder.name == "General") {
-                groups[bitwardenFolder.id] = groups[null];
-            } else {
-                groups[bitwardenFolder.id] = archive.createGroup(
-                    bitwardenFolder.name
-                );
-            }
-        });
-
-        bwJson.items.forEach(bitwardenItem => {
-            const group = groups[bitwardenItem.folderId];
-
-            const entry = group.createEntry(bitwardenItem.name);
-
-            if ("login" in bitwardenItem) {
-                entry.setProperty("username", bitwardenItem.login.username);
-                entry.setProperty("password", bitwardenItem.login.password);
-
-                if (
-                    "uris" in bitwardenItem.login &&
-                    bitwardenItem.login.uris.length > 0
-                ) {
-                    entry.setMeta("URL", bitwardenItem.login.uris[0].uri);
+            // Create mapping between folder ids and groups
+            groups[null] = vault.createGroup(DEFAULT_GROUP);
+            bwJson.folders.forEach(bitwardenFolder => {
+                if (bitwardenFolder.name == "General") {
+                    groups[bitwardenFolder.id] = groups[null];
+                } else {
+                    groups[bitwardenFolder.id] = vault.createGroup(
+                        bitwardenFolder.name
+                    );
                 }
-            }
+            });
 
-            if ("notes" in bitwardenItem) {
-                entry.setMeta("Notes", bitwardenItem.notes);
-            }
+            bwJson.items.forEach(bitwardenItem => {
+                const group = groups[bitwardenItem.folderId];
 
-            if ("fields" in bitwardenItem) {
-                bitwardenItem.fields.forEach(itemField => {
-                    entry.setMeta(itemField.name, itemField.value);
-                });
-            }
+                const entry = group.createEntry(bitwardenItem.name);
+
+                if ("login" in bitwardenItem) {
+                    entry.setProperty("username", bitwardenItem.login.username);
+                    entry.setProperty("password", bitwardenItem.login.password);
+
+                    if (
+                        "uris" in bitwardenItem.login &&
+                        bitwardenItem.login.uris.length > 0
+                    ) {
+                        entry.setProperty(
+                            "URL",
+                            bitwardenItem.login.uris[0].uri
+                        );
+                    }
+                }
+
+                if ("notes" in bitwardenItem) {
+                    entry.setProperty("Notes", bitwardenItem.notes);
+                }
+
+                if ("fields" in bitwardenItem) {
+                    bitwardenItem.fields.forEach(itemField => {
+                        entry.setProperty(itemField.name, itemField.value);
+                    });
+                }
+            });
+
+            return vault;
         });
+    }
+}
 
-        return archive;
-    });
+/**
+ * Load an importer from a file
+ * @param {String} filename The file to load from
+ * @returns {Promise.<BitwardenImporter>}
+ * @static
+ * @memberof BitwardenImporter
+ */
+BitwardenImporter.loadFromFile = function(filename) {
+    return readFile(filename, "utf8").then(data => new BitwardenImporter(data));
 };
 
-module.exports = importFromBitwarden;
+module.exports = BitwardenImporter;

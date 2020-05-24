@@ -1,10 +1,7 @@
 const fs = require("fs");
 const xml2js = require("xml2js");
-const Buttercup = require("buttercup");
-
-const { Archive, ManagedGroup, ManagedEntry } = Buttercup;
-
-// --- helpers
+const VError = require("verror");
+const { Vault } = require("buttercup");
 
 function extractString(obj) {
     if (typeof obj === "string") {
@@ -45,7 +42,7 @@ function processGroup(group, archive, currentGroup) {
                         ) {
                             entry.setProperty(friendlyKey, actualValue);
                         } else {
-                            entry.setMeta(actualKey, actualValue);
+                            entry.setProperty(actualKey, actualValue);
                         }
                     });
                 }
@@ -54,39 +51,58 @@ function processGroup(group, archive, currentGroup) {
     });
 }
 
-// --- class
+/**
+ * Importer for KeePass XML exports
+ * @memberof module:ButtercupImporter
+ */
+class KeePass2XMLImporter {
+    /**
+     * Create a new KeePass XML importer
+     * @param {String} xmlContent The XML content to import from
+     */
+    constructor(xmlContent) {
+        this._content = xmlContent;
+    }
 
-var KeePass2XMLImporter = function(xmlContent) {
-    this._content = xmlContent;
-};
-
-KeePass2XMLImporter.prototype.exportArchive = function() {
-    var parser = new xml2js.Parser(),
-        xmlContent = this._content;
-    return new Promise(function(resolve, reject) {
-        parser.parseString(xmlContent, function(err, result) {
-            if (err) {
-                return reject(err);
-            }
-            resolve(result);
-        });
-    })
-        .then(function(keepassJS) {
-            var archive = new Archive(),
-                rootGroup;
-            try {
-                rootGroup = keepassJS.KeePassFile.Root[0];
-            } catch (err) {
-                console.error("KeePass root group not found");
-            }
-            processGroup(rootGroup || {}, archive);
-            return archive;
+    /**
+     * Export a vault from a KeePass 2 XML dump
+     * @returns {Promise.<Vault>}
+     * @memberof KeePass2XMLImporter
+     */
+    export() {
+        const parser = new xml2js.Parser();
+        return new Promise((resolve, reject) => {
+            parser.parseString(this._content, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(result);
+            });
         })
-        .catch(function(err) {
-            console.error("Failed parsing KDBX archive: " + err.message);
-        });
-};
+            .then(function(keepassJS) {
+                const vault = new Vault();
+                let rootGroup;
+                try {
+                    rootGroup = keepassJS.KeePassFile.Root[0];
+                } catch (err) {
+                    console.warn("KeePass root group not found");
+                }
+                processGroup(rootGroup || {}, vault);
+                return vault;
+            })
+            .catch(function(err) {
+                throw new VError(err, "Failed parsing KDBX vault");
+            });
+    }
+}
 
+/**
+ * Load XML from a file
+ * @param {String} filename The file to read (XML)
+ * @returns {Promise.<KeePass2XMLImporter>}
+ * @memberof KeePass2XMLImporter
+ * @static
+ */
 KeePass2XMLImporter.loadFromFile = function(filename) {
     return new Promise(function(resolve, reject) {
         fs.readFile(filename, function(err, data) {

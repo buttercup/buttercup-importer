@@ -1,38 +1,64 @@
 const fs = require("fs");
-
 const pify = require("pify");
-const { Archive } = require("buttercup");
+const { Vault } = require("buttercup");
 const csvparse = require("csv-parse/lib/sync");
 
-const defaultGroup = "General";
+const readFile = pify(fs.readFile);
+
+const DEFAULT_GROUP = "General";
 
 /**
- * Import an exported LastPass CSV archive
- * @param {String} lpcsvPath The path to the LastPass CSV file
- * @returns {Promise.<Archive>} A promise that resolves with the imported archive
+ * Importer for LastPass CSV dumps
+ * @memberof module:ButtercupImporter
  */
-const importFromLastPass = lpcsvPath => {
-    const groups = {};
+class LastPassImporter {
+    /**
+     * Create a new LastPass importer
+     * @param {String} data Raw CSV data of a LastPass vault export
+     */
+    constructor(data) {
+        this._data = data;
+    }
 
-    return pify(fs.readFile)(lpcsvPath, "utf8").then(contents => {
-        const archive = new Archive();
-        csvparse(contents, { columns: true }).forEach(lastpassItem => {
-            const groupName = lastpassItem.grouping || defaultGroup;
-            const group =
-                groups[groupName] ||
-                (groups[groupName] = archive.createGroup(groupName));
-            const entry = group
-                .createEntry(lastpassItem.name)
-                .setProperty("username", lastpassItem.username)
-                .setProperty("password", lastpassItem.password)
-                .setMeta("URL", lastpassItem.url);
-            if (lastpassItem.extra) {
-                entry.setMeta("Notes", lastpassItem.extra);
-            }
+    /**
+     * Export to a Buttercup vault
+     * @returns {Promise.<Vault>}
+     * @memberof LastPassImporter
+     */
+    export() {
+        const groups = {};
+        return Promise.resolve().then(() => {
+            const vault = new Vault();
+            csvparse(this._data, { columns: true }).forEach(lastpassItem => {
+                const groupName = lastpassItem.grouping || DEFAULT_GROUP;
+                const group =
+                    groups[groupName] ||
+                    (groups[groupName] = vault.createGroup(groupName));
+                const entry = group
+                    .createEntry(lastpassItem.name)
+                    .setProperty("username", lastpassItem.username)
+                    .setProperty("password", lastpassItem.password)
+                    .setProperty("URL", lastpassItem.url);
+                if (lastpassItem.extra) {
+                    entry.setProperty("Notes", lastpassItem.extra);
+                }
+            });
+            return vault;
         });
+    }
+}
 
-        return archive;
+/**
+ * Load the importer from a file
+ * @param {String} filename The source filename
+ * @returns {Promise.<LastPassImporter>}
+ * @static
+ * @memberof LastPassImporter
+ */
+LastPassImporter.loadFromFile = function(filename) {
+    return readFile(filename, "utf8").then(contents => {
+        return new LastPassImporter(contents);
     });
 };
 
-module.exports = importFromLastPass;
+module.exports = LastPassImporter;

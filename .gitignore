@@ -3,6 +3,7 @@
 .history
 .vscode
 .DS_Store
+.nyc_output
 node_modules
 /dist
 /build
