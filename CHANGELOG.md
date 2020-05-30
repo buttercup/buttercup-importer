@@ -1,5 +1,13 @@
 # Buttercup importer changelog
 
+## v2.0.0
+_2020-05-30_
+
+ * **Major rebuild**
+ * Buttercup vault importer (.bcup)
+ * All importers use classes
+ * Buttercup core version 4
+
 ## v1.3.0
 _2020-03-31_
 

@@ -59,7 +59,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
     "@babel/preset-env": "^7.9.0",
     "@buttercup/exporter": "^1.0.0",
-    "buttercup": "4.0.0-r09",
+    "buttercup": "^4.0.0",
     "chai": "^4.2.0",
     "husky": "^4.2.3",
     "jsdoc-to-markdown": "^5.0.3",
