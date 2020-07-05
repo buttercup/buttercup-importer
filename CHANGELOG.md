@@ -1,5 +1,11 @@
 # Buttercup importer changelog
 
+## v2.0.1
+_2020-07-06_
+
+ * **Bugfix**
+   * `package.json` `main` points to incorrect location
+
 ## v2.0.0
 _2020-05-30_
 
