@@ -14,6 +14,10 @@
     "test:format": "prettier-check '{source,test}/**/*.js'",
     "test:specs": "nyc mocha -r test/index.js 'test/specs/**/*.spec.js'"
   },
+  "files": [
+    "dist/**/*.js",
+    "*.md"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
