@@ -1,5 +1,11 @@
 # Buttercup importer changelog
 
+## v2.0.2
+_2020-07-06_
+
+ * **Bugfix**
+   * `ButtercupCSVImporter` not exported correctly
+
 ## v2.0.1
 _2020-07-06_
 
