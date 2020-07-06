@@ -1,5 +1,5 @@
 const BitwardenImporter = require("./importers/BitwardenImporter.js");
-const ButtercupCSVImporter = require("./importers/OnePasswordImporter.js");
+const ButtercupCSVImporter = require("./importers/ButtercupCSVImporter.js");
 const ButtercupImporter = require("./importers/ButtercupImporter.js");
 const CSVImporter = require("./importers/CSVImporter.js");
 const KDBXImporter = require("./importers/KDBXImporter.js");
