@@ -1,5 +1,14 @@
 # Buttercup importer changelog
 
+## v2.0.3
+_2020-07-07_
+
+ * **Bugfix**:
+   * `ButtercupCSVImporter` not importing correctly
+     * CSV item type (group/entry) not detected
+     * Group ID not set
+     * Group parent not set
+
 ## v2.0.2
 _2020-07-06_
 
