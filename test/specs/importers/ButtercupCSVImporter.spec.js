@@ -9,13 +9,14 @@ const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/bcup.tmp.csv");
 describe("ButtercupCSVImporter", function() {
     beforeEach(function() {
         const vault = new Vault();
-        vault
-            .createGroup("Test Group")
+        const group = vault.createGroup("Test Group");
+        group
             .createEntry("Test")
             .setProperty("username", "user")
             .setProperty("password", "pass")
             .setProperty("URL", "http://test.com")
             .setProperty("secret", "value");
+        group.createGroup("Test Child Group");
         return exportVaultToCSV(vault)
             .then(csv => {
                 fs.writeFileSync(EXAMPLE_VAULT, csv);
@@ -36,12 +37,22 @@ describe("ButtercupCSVImporter", function() {
     });
 
     it("exports expected groups", function() {
-        const groups = this.vault.getGroups().map(g => g.getTitle());
-        expect(groups).to.contain("Test Group");
+        const groups = this.vault.getGroups();
+        expect(groups).to.have.lengthOf(1, "Should be only 1 root group");
+        const [parent] = groups;
+        expect(parent.getTitle()).to.equal("Test Group");
+        expect(parent.getGroups()).to.have.lengthOf(
+            1,
+            "Should be only 1 child group"
+        );
+        const [child] = parent.getGroups();
+        expect(child.getTitle()).to.equal("Test Child Group");
     });
 
     it("exports expected entries", function() {
-        const [entry] = this.vault.findEntriesByProperty("title", "Test");
+        const entries = this.vault.findEntriesByProperty(/.+/, /.+/);
+        expect(entries).to.have.lengthOf(1);
+        const [entry] = entries;
         expect(entry).to.be.an.instanceOf(Entry);
         expect(entry.getProperty("username")).to.equal("user");
         expect(entry.getProperty("password")).to.equal("pass");
