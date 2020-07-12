@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v3.0.1
+_2020-07-12_
+
+ * Prevent hard failure when importing Buttercup vaults when parent/child relationships are broken
+
 ## v3.0.0
 _2020-07-12_
 
