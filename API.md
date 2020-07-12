@@ -35,8 +35,6 @@
         * [new ButtercupImporter(sourceVault)](#new_module_ButtercupImporter.ButtercupImporter_new)
     * [~CSVImporter](#module_ButtercupImporter.CSVImporter)
         * [new CSVImporter(csvData, [name])](#new_module_ButtercupImporter.CSVImporter_new)
-    * [~KDBXImporter](#module_ButtercupImporter.KDBXImporter)
-        * [new KDBXImporter(kdbxDB)](#new_module_ButtercupImporter.KDBXImporter_new)
     * [~KeePass2XMLImporter](#module_ButtercupImporter.KeePass2XMLImporter)
         * [new KeePass2XMLImporter(xmlContent)](#new_module_ButtercupImporter.KeePass2XMLImporter_new)
     * [~LastPassImporter](#module_ButtercupImporter.LastPassImporter)
@@ -109,22 +107,6 @@ Create a new CSV importer
 | --- | --- | --- | --- |
 | csvData | <code>String</code> |  | The source CSV data |
 | [name] | <code>String</code> | <code>Untitled CSV import</code> | Name for the imported folder |
-
-<a name="module_ButtercupImporter.KDBXImporter"></a>
-
-### ButtercupImporter~KDBXImporter
-Importer for KDBX vaults (<= v4)
-
-**Kind**: inner class of [<code>ButtercupImporter</code>](#module_ButtercupImporter)  
-<a name="new_module_ButtercupImporter.KDBXImporter_new"></a>
-
-#### new KDBXImporter(kdbxDB)
-Create a new KDBX importer
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| kdbxDB | <code>kdbxweb.Kdbx</code> | KDBX database instance |
 
 <a name="module_ButtercupImporter.KeePass2XMLImporter"></a>
 

@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v3.0.0
+_2020-07-12_
+
+ * Remove support for KDBX imports
+
 ## v2.0.3
 _2020-07-07_
 
