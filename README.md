@@ -26,13 +26,16 @@ Check out the [API documentation](API.md).
 ### Supported platforms
 The importer requires Node **8** or higher.
 
-### Supported password archive formats
+### Supported password vault formats
 
-* ![KDBX (keepass)](https://img.shields.io/badge/KDBX-Full-brightgreen.svg) KeePass 2 archives (KDBX v3 and v4)
-* ![Lastpass](https://img.shields.io/badge/CSV-Full-brightgreen.svg) Lastpass archives
-* ![1Password](https://img.shields.io/badge/1PIF-Most-brightgreen.svg) 1Password PIF files (exported)
-* ![Buttercup](https://img.shields.io/badge/CSV-Most-brightgreen.svg) Buttercup archives (exported)
-* ![CSV](https://img.shields.io/badge/CSV-Basic-brightgreen.svg) CSV files (generic)
+ * Bitwarden JSON exports
+ * Buttercup (BCUP) vaults
+ * Buttercup CSV exports
+ * CSV files
+ * ~~KeePass KDBX vaults~~ ([removed in v3](https://github.com/buttercup/buttercup-importer/issues/57))
+ * KeePass XML exports
+ * LastPass CSV exports
+ * 1Password (1PIF) exports
 
 ### Importing from 3rd-party managers
 
@@ -41,9 +44,9 @@ The importer requires Node **8** or higher.
 KeePass vaults can be imported using either of the 2 supported importers:
 
  * KeePass XML (version 2) - `KeePass2XMLImporter`
- * KDBX vaults (up to, and including, version 4) - `KDBXImporter`
+ * ~~KDBX vaults (up to, and including, version 4) - `KDBXImporter`~~
 
-This library supports both version 3 and 4 of the KDBX format, including the newly required argon2 hashing feature. Key files are also supported.
+To import KeePass vaults, first export to XML format.
 
 #### 1Password
 
