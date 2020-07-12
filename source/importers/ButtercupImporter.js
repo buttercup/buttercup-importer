@@ -30,23 +30,25 @@ function updateFacadeItemIDs(vaultFacade) {
         nextID += 1;
         group.id = newID;
     });
-    vaultFacade.groups.forEach(group => {
+    vaultFacade.groups = vaultFacade.groups.filter(group => {
         if (group.parentID != "0") {
             const originalParentID = group.parentID;
             group.parentID = idMap[originalParentID];
             if (!group.parentID) {
-                throw new Error(`Bad group parent ID: ${originalParentID}`);
+                return false;
             }
         }
+        return true;
     });
-    vaultFacade.entries.forEach(entry => {
+    vaultFacade.entries = vaultFacade.entries.filter(entry => {
         entry.id = nextID.toString();
         nextID += 1;
         const originalParentID = entry.parentID;
         entry.parentID = idMap[originalParentID];
         if (!entry.parentID) {
-            throw new Error(`Bad entry parent ID: ${originalParentID}`);
+            return false;
         }
+        return true;
     });
     return vaultFacade;
 }
