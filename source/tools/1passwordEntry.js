@@ -36,14 +36,30 @@ function onePasswordItemToEntry(rawItem) {
             }
         });
     } else if (ENTRY_CREDITCARD.test(rawItem.typeName)) {
-        entry.username = rawItem.secureContents.ccnum;
-        entry.password = rawItem.secureContents.cvv;
-        entry.meta.type = rawItem.secureContents.type;
-        entry.meta.cardholder = rawItem.secureContents.cardholder;
-        entry.meta["expiry-year"] = rawItem.secureContents.expiry_yy;
-        entry.meta["expiry-month"] = rawItem.secureContents.expiry_mm;
-        entry.meta["validfrom-year"] = rawItem.secureContents.validFrom_yy;
-        entry.meta["validfrom-month"] = rawItem.secureContents.validFrom_mm;
+        if (rawItem.secureContents.ccnum) {
+            entry.username = rawItem.secureContents.ccnum;
+        }
+        if (rawItem.secureContents.cvv) {
+            entry.password = rawItem.secureContents.cvv;
+        }
+        if (rawItem.secureContents.type) {
+            entry.meta.type = rawItem.secureContents.type;
+        }
+        if (rawItem.secureContents.cardholder) {
+            entry.meta.cardholder = rawItem.secureContents.cardholder;
+        }
+        if (rawItem.secureContents.expiry_yy) {
+            entry.meta["expiry-year"] = rawItem.secureContents.expiry_yy;
+        }
+        if (rawItem.secureContents.expiry_mm) {
+            entry.meta["expiry-month"] = rawItem.secureContents.expiry_mm;
+        }
+        if (rawItem.secureContents.validFrom_yy) {
+            entry.meta["validfrom-year"] = rawItem.secureContents.validFrom_yy;
+        }
+        if (rawItem.secureContents.validFrom_mm) {
+            entry.meta["validfrom-month"] = rawItem.secureContents.validFrom_mm;
+        }
     } else if (ENTRY_PASSWORD.test(rawItem.typeName)) {
         entry.password = rawItem.secureContents.password;
     } else if (ENTRY_LICENSE.test(rawItem.typeName)) {
@@ -60,19 +76,26 @@ function onePasswordItemToEntry(rawItem) {
     } else if (ENTRY_EMAIL_V2.test(rawItem.typeName)) {
         entry.username = rawItem.secureContents.pop_username;
         entry.password = rawItem.secureContents.pop_password;
-        entry.meta["POP Server"] = rawItem.secureContents.pop_server;
+        if (rawItem.secureContents.pop_server) {
+            entry.meta["POP Server"] = rawItem.secureContents.pop_server;
+        }
     } else if (ENTRY_SSN.test(rawItem.typeName)) {
         entry.password = rawItem.secureContents.number;
         if (rawItem.secureContents.name) {
             entry.meta.Name = rawItem.secureContents.name;
         }
     } else if (ENTRY_ROUTER.test(rawItem)) {
-        entry.username = entry.meta.Network =
-            rawItem.secureContents.network_name ||
-            rawItem.secureContents.network_name;
+        entry.username = rawItem.secureContents.network_name;
         entry.password = rawItem.secureContents.password;
-        entry.meta.Security = rawItem.secureContents.wireless_security;
-        entry.meta.Server = rawItem.secureContents.server;
+        if (rawItem.secureContents.network_name) {
+            entry.meta.Network = rawItem.secureContents.network_name;
+        }
+        if (rawItem.secureContents.wireless_security) {
+            entry.meta.Security = rawItem.secureContents.wireless_security;
+        }
+        if (rawItem.secureContents.server) {
+            entry.meta.Server = rawItem.secureContents.server;
+        }
     } else {
         return null;
     }
