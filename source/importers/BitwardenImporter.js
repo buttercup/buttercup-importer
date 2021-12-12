@@ -48,8 +48,18 @@ class BitwardenImporter {
                 const entry = group.createEntry(bitwardenItem.name);
 
                 if ("login" in bitwardenItem) {
-                    entry.setProperty("username", bitwardenItem.login.username);
-                    entry.setProperty("password", bitwardenItem.login.password);
+                    entry.setProperty(
+                        "username",
+                        bitwardenItem.login.username === null
+                            ? ""
+                            : bitwardenItem.login.username
+                    );
+                    entry.setProperty(
+                        "password",
+                        bitwardenItem.login.password === null
+                            ? ""
+                            : bitwardenItem.login.password
+                    );
 
                     if (
                         "uris" in bitwardenItem.login &&
@@ -62,13 +72,15 @@ class BitwardenImporter {
                     }
                 }
 
-                if ("notes" in bitwardenItem) {
+                if ("notes" in bitwardenItem && bitwardenItem.notes !== null) {
                     entry.setProperty("Notes", bitwardenItem.notes);
                 }
 
                 if ("fields" in bitwardenItem) {
                     bitwardenItem.fields.forEach(itemField => {
-                        entry.setProperty(itemField.name, itemField.value);
+                        if (itemField.value !== null) {
+                            entry.setProperty(itemField.name, itemField.value);
+                        }
                     });
                 }
             });
