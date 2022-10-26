@@ -1,5 +1,10 @@
 # Buttercup importer changelog
 
+## v3.0.2
+_2020-10-26_
+ * **Bugfix**
+   * Preventing undefined entry metadata for Bitwarden and 1Password imports
+
 ## v3.0.1
 _2020-07-12_
 
