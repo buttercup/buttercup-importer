@@ -15,7 +15,8 @@ describe("ButtercupCSVImporter", function() {
             .setProperty("username", "user")
             .setProperty("password", "pass")
             .setProperty("URL", "http://test.com")
-            .setProperty("secret", "value");
+            .setProperty("secret", "value")
+            .setProperty("empty", "");
         group.createGroup("Test Child Group");
         return exportVaultToCSV(vault)
             .then(csv => {
@@ -56,5 +57,6 @@ describe("ButtercupCSVImporter", function() {
         expect(entry).to.be.an.instanceOf(Entry);
         expect(entry.getProperty("username")).to.equal("user");
         expect(entry.getProperty("password")).to.equal("pass");
+        expect(entry.getProperty("empty")).to.be.undefined;
     });
 });
