@@ -10,9 +10,9 @@
     "docs": "jsdoc2md 'source/**/*.js' > API.md",
     "format": "prettier --write '{source,test}/**/*.js'",
     "prepublishOnly": "npm run build",
-    "test": "run-s build test:specs test:format",
+    "test": "run-s test:specs test:format",
     "test:format": "prettier --check '{source,test}/**/*.js'",
-    "test:specs": "nyc mocha -r test/index.js 'test/specs/**/*.spec.js'"
+    "test:specs": "npm run build && nyc mocha -r test/index.js 'test/specs/**/*.spec.js'"
   },
   "files": [
     "dist/**/*.js",
