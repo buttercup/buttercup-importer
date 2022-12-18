@@ -1,9 +1,12 @@
 # Buttercup importer changelog
 
-## v3.0.2
+## v3.1.0
 _2020-10-26_
+
+ * Native Node FS promises over `pify` library
  * **Bugfix**
-   * Preventing undefined entry metadata for Bitwarden and 1Password imports
+   * Undefined entry metadata in Bitwarden and 1Password imports
+   * [#69](https://github.com/buttercup/buttercup-importer/issues/69) Empty custom fields are imported in Buttercup CSV
 
 ## v3.0.1
 _2020-07-12_
