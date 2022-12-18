@@ -1,7 +1,7 @@
 # Buttercup Vault Importer
 > Import vaults from other password managers
 
-[![npm](https://img.shields.io/npm/v/@buttercup/importer?color=green&label=%40buttercup%2Fimporter)](https://www.npmjs.com/package/@buttercup/importer) [![minium node version](https://img.shields.io/badge/node%20version-%3E%3D%208.x-blue.svg)](https://github.com/buttercup/buttercup-importer) [![Build Status](https://travis-ci.org/buttercup/buttercup-importer.svg?branch=master)](https://travis-ci.org/buttercup/buttercup-importer) ![npm downloads](https://img.shields.io/npm/dm/buttercup-importer.svg?maxAge=2592000)
+[![npm](https://img.shields.io/npm/v/@buttercup/importer?color=green&label=%40buttercup%2Fimporter)](https://www.npmjs.com/package/@buttercup/importer) ![Tests](https://github.com/buttercup/buttercup-importer/actions/workflows/test.yml/badge.svg) ![npm downloads](https://img.shields.io/npm/dm/buttercup-importer.svg?maxAge=2592000)
 
 ## About
 
@@ -24,7 +24,7 @@ KDBXImporter.loadFromFile("...");
 Check out the [API documentation](API.md).
 
 ### Supported platforms
-The importer requires Node **8** or higher.
+The importer requires Node **14** or later.
 
 ### Supported password vault formats
 
