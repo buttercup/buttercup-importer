@@ -1,12 +1,10 @@
 const path = require("path");
-const fs = require("fs");
-const pify = require("pify");
+const fs = require("fs/promises");
 const isDir = require("is-dir").sync;
 const Buttercup = require("buttercup");
 const { convert1pifToJSON } = require("../tools/1password.js");
 
 const { Vault } = Buttercup;
-const readFile = pify(fs.readFile);
 
 /**
  * Map a 1PIF JSON tree back to an archive
@@ -16,9 +14,9 @@ const readFile = pify(fs.readFile);
  */
 function mapTreeLevelToVault(parentVaultItem, treeLevel) {
     const group = parentVaultItem.createGroup(treeLevel.title);
-    treeLevel.entries.forEach(function(rawEntry) {
+    treeLevel.entries.forEach(function (rawEntry) {
         const entry = group.createEntry(rawEntry.title);
-        Object.keys(rawEntry.meta).forEach(function(metaKey) {
+        Object.keys(rawEntry.meta).forEach(function (metaKey) {
             entry.setProperty(metaKey, rawEntry.meta[metaKey]);
         });
         if (rawEntry.username) {
@@ -27,11 +25,11 @@ function mapTreeLevelToVault(parentVaultItem, treeLevel) {
         if (rawEntry.password) {
             entry.setProperty("password", rawEntry.password);
         }
-        Object.keys(rawEntry.attributes).forEach(function(attributeKey) {
+        Object.keys(rawEntry.attributes).forEach(function (attributeKey) {
             entry.setAttribute(attributeKey, rawEntry.attributes[attributeKey]);
         });
     });
-    treeLevel.groups.forEach(function(rawGroup) {
+    treeLevel.groups.forEach(function (rawGroup) {
         mapTreeLevelToVault(group, rawGroup);
     });
 }
@@ -84,11 +82,11 @@ class OnePasswordImporter {
  * @static
  * @memberof OnePasswordImporter
  */
-OnePasswordImporter.loadFromFile = function(filename) {
+OnePasswordImporter.loadFromFile = function (filename) {
     const absolutePath = resolve1pifFile(filename);
-    return readFile(absolutePath, "utf8").then(
-        data => new OnePasswordImporter(data)
-    );
+    return fs
+        .readFile(absolutePath, "utf8")
+        .then((data) => new OnePasswordImporter(data));
 };
 
 module.exports = OnePasswordImporter;
