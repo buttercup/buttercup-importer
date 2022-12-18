@@ -51,6 +51,7 @@ class ButtercupCSVImporter {
                     Object.keys(bcupItem)
                         .filter(key => /^\!.+/.test(key) === false)
                         .filter(key => NON_COPY_KEYS.indexOf(key) === -1)
+                        .filter(key => bcupItem[key])
                         .forEach(key => {
                             entry.setProperty(key, bcupItem[key]);
                         });
