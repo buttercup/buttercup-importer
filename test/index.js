@@ -6,5 +6,5 @@ init();
 
 Object.assign(global, {
     expect,
-    sinon
+    sinon,
 });

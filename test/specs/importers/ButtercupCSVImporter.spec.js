@@ -6,8 +6,8 @@ const ButtercupCSVImporter = require("../../../dist/importers/ButtercupCSVImport
 
 const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/bcup.tmp.csv");
 
-describe("ButtercupCSVImporter", function() {
-    beforeEach(function() {
+describe("ButtercupCSVImporter", function () {
+    beforeEach(function () {
         const vault = new Vault();
         const group = vault.createGroup("Test Group");
         group
@@ -19,25 +19,25 @@ describe("ButtercupCSVImporter", function() {
             .setProperty("empty", "");
         group.createGroup("Test Child Group");
         return exportVaultToCSV(vault)
-            .then(csv => {
+            .then((csv) => {
                 fs.writeFileSync(EXAMPLE_VAULT, csv);
             })
             .then(() => ButtercupCSVImporter.loadFromFile(EXAMPLE_VAULT))
-            .then(importer => importer.export())
-            .then(vault => {
+            .then((importer) => importer.export())
+            .then((vault) => {
                 this.vault = vault;
             });
     });
 
-    afterEach(function() {
+    afterEach(function () {
         fs.unlinkSync(EXAMPLE_VAULT);
     });
 
-    it("creates a vault instance", function() {
+    it("creates a vault instance", function () {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    it("exports expected groups", function() {
+    it("exports expected groups", function () {
         const groups = this.vault.getGroups();
         expect(groups).to.have.lengthOf(1, "Should be only 1 root group");
         const [parent] = groups;
@@ -50,7 +50,7 @@ describe("ButtercupCSVImporter", function() {
         expect(child.getTitle()).to.equal("Test Child Group");
     });
 
-    it("exports expected entries", function() {
+    it("exports expected entries", function () {
         const entries = this.vault.findEntriesByProperty(/.+/, /.+/);
         expect(entries).to.have.lengthOf(1);
         const [entry] = entries;

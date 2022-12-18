@@ -20,14 +20,14 @@ function onePasswordItemToEntry(rawItem) {
         password: "",
         meta: {},
         attributes: {
-            [ATTR_1PASS_TYPE]: rawItem.typeName
-        }
+            [ATTR_1PASS_TYPE]: rawItem.typeName,
+        },
     };
     if (rawItem.location) {
         entry.meta.url = rawItem.location;
     }
     if (testNormalEntryAndFieldsExist(rawItem)) {
-        rawItem.secureContents.fields.forEach(function(field) {
+        rawItem.secureContents.fields.forEach(function (field) {
             if (field.designation === "username") {
                 entry.username = field.value;
             }
@@ -110,5 +110,5 @@ function testNormalEntryAndFieldsExist(rawItem) {
 }
 
 module.exports = {
-    onePasswordItemToEntry
+    onePasswordItemToEntry,
 };

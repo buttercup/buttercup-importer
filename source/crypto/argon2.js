@@ -19,10 +19,10 @@ function argon2(
         parallelism,
         version,
         timeCost: iterations,
-        raw: true
+        raw: true,
     });
 }
 
 module.exports = {
-    argon2
+    argon2,
 };

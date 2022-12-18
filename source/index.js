@@ -17,5 +17,5 @@ module.exports = {
     CSVImporter,
     KeePass2XMLImporter,
     LastPassImporter,
-    OnePasswordImporter
+    OnePasswordImporter,
 };
