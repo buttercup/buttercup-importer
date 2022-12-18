@@ -4,20 +4,20 @@ const { Entry, Group, Vault } = require("buttercup");
 
 const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/test.bcup");
 
-describe("ButtercupImporter", function() {
-    beforeEach(function() {
+describe("ButtercupImporter", function () {
+    beforeEach(function () {
         return ButtercupImporter.loadFromFile(EXAMPLE_VAULT, "passw0rd")
-            .then(importer => importer.export())
-            .then(vault => {
+            .then((importer) => importer.export())
+            .then((vault) => {
                 this.vault = vault;
             });
     });
 
-    it("creates a vault instance", function() {
+    it("creates a vault instance", function () {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    it("exports expected groups", function() {
+    it("exports expected groups", function () {
         const [general] = this.vault.findGroupsByTitle("General");
         expect(general).to.be.an.instanceOf(
             Group,
@@ -30,7 +30,7 @@ describe("ButtercupImporter", function() {
         );
     });
 
-    it("exports expected entries", function() {
+    it("exports expected entries", function () {
         const allEntries = this.vault.findEntriesByProperty("title", /.*/);
         expect(allEntries).to.have.lengthOf(1);
         const [entry] = allEntries;

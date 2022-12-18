@@ -7,25 +7,25 @@ const EXAMPLE_VAULT = path.resolve(
     "../../resources/chrome_pass.csv"
 );
 
-describe("CSVImporter", function() {
-    beforeEach(function() {
+describe("CSVImporter", function () {
+    beforeEach(function () {
         return CSVImporter.loadFromFile(EXAMPLE_VAULT)
-            .then(importer => importer.export())
-            .then(vault => {
+            .then((importer) => importer.export())
+            .then((vault) => {
                 this.vault = vault;
             });
     });
 
-    it("creates a vault instance", function() {
+    it("creates a vault instance", function () {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    it("exports expected groups", function() {
-        const groups = this.vault.getGroups().map(g => g.getTitle());
+    it("exports expected groups", function () {
+        const groups = this.vault.getGroups().map((g) => g.getTitle());
         expect(groups).to.contain("chrome_pass");
     });
 
-    it("exports expected entries", function() {
+    it("exports expected entries", function () {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item without any info"

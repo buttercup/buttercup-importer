@@ -1,10 +1,7 @@
-const fs = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
-const pify = require("pify");
 const { Vault } = require("buttercup");
 const csvparse = require("csv-parse/lib/sync");
-
-const readFile = pify(fs.readFile);
 
 /**
  * Importer for CSV files
@@ -58,10 +55,13 @@ class CSVImporter {
  * @memberof CSVImporter
  * @static
  */
-CSVImporter.loadFromFile = function(filename) {
-    return readFile(filename, "utf8").then(
-        data => new CSVImporter(data, path.basename(filename).split(".")[0])
-    );
+CSVImporter.loadFromFile = function (filename) {
+    return fs
+        .readFile(filename, "utf8")
+        .then(
+            (data) =>
+                new CSVImporter(data, path.basename(filename).split(".")[0])
+        );
 };
 
 module.exports = CSVImporter;

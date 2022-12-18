@@ -7,27 +7,27 @@ const EXAMPLE_VAULT = path.resolve(
     "../../resources/test-1password.1pif"
 );
 
-describe("OnePasswordImporter", function() {
-    beforeEach(function() {
+describe("OnePasswordImporter", function () {
+    beforeEach(function () {
         return OnePasswordImporter.loadFromFile(EXAMPLE_VAULT)
-            .then(importer => importer.export())
-            .then(vault => {
+            .then((importer) => importer.export())
+            .then((vault) => {
                 this.vault = vault;
             });
     });
 
-    it("creates a vault instance", function() {
+    it("creates a vault instance", function () {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    it("cantains expected groups", function() {
+    it("cantains expected groups", function () {
         const generalGroup = this.vault.findGroupsByTitle("General")[0];
         expect(generalGroup).to.be.an.instanceOf(Group);
         const subGroup = generalGroup.findGroupsByTitle("Sub")[0];
         expect(subGroup).to.be.an.instanceOf(Group);
     });
 
-    it("contains expected entries", function() {
+    it("contains expected entries", function () {
         const testEntry = this.vault.findEntriesByProperty("title", "Test")[0];
         const customCard = this.vault.findEntriesByProperty(
             "title",

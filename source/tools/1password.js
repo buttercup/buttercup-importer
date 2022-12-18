@@ -11,21 +11,21 @@ const ONEPASS_SPACER = /^\*\*\*.+/;
 function convert1pifToJSON(onePifRaw) {
     const items = onePifRaw
         .split(/\r\n|\n/)
-        .map(line => line.trim())
-        .filter(line => line.length > 0 && ONEPASS_SPACER.test(line) !== true)
-        .map(line => JSON.parse(line));
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0 && ONEPASS_SPACER.test(line) !== true)
+        .map((line) => JSON.parse(line));
     const groups = {};
     const entries = {};
     // let defaultGroup = null;
 
     const groupNames = items
-        .map(item => item.typeName)
-        .filter(typeName => !ONEPASS_FOLDER.test(typeName));
-    [...new Set(groupNames)].forEach(groupName => {
+        .map((item) => item.typeName)
+        .filter((typeName) => !ONEPASS_FOLDER.test(typeName));
+    [...new Set(groupNames)].forEach((groupName) => {
         groups[groupName] = createGroupSkeleton(groupName, groupName);
     });
 
-    items.forEach(function(item) {
+    items.forEach(function (item) {
         if (ONEPASS_FOLDER.test(item.typeName)) {
             const group = createGroupSkeleton(item.uuid);
             if (item.folderUuid) {
@@ -56,7 +56,7 @@ function createGroupSkeleton(id, title = "Untitled Group") {
         title,
         parentID: null,
         entries: [],
-        groups: []
+        groups: [],
     };
 }
 
@@ -71,7 +71,7 @@ function mergeItemsToTree(groups, entries, currentGroup) {
     if (!currentGroup) {
         thisGroup.title = "Imported 1password vault";
     }
-    Object.values(entries).forEach(function(entry) {
+    Object.values(entries).forEach(function (entry) {
         if (
             (!entry.groupID && thisGroup.id === null) ||
             (entry.groupID && entry.groupID === thisGroup.id)
@@ -79,7 +79,7 @@ function mergeItemsToTree(groups, entries, currentGroup) {
             thisGroup.entries.push(entry);
         }
     });
-    Object.values(groups).forEach(function(group) {
+    Object.values(groups).forEach(function (group) {
         if (group.id && group.parentID === thisGroup.id) {
             thisGroup.groups.push(mergeItemsToTree(groups, entries, group));
         }
@@ -88,5 +88,5 @@ function mergeItemsToTree(groups, entries, currentGroup) {
 }
 
 module.exports = {
-    convert1pifToJSON
+    convert1pifToJSON,
 };

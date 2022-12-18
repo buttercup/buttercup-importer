@@ -1,9 +1,6 @@
-const fs = require("fs");
-const pify = require("pify");
+const fs = require("fs/promises");
 const { Vault } = require("buttercup");
 const csvparse = require("csv-parse/lib/sync");
-
-const readFile = pify(fs.readFile);
 
 const DEFAULT_GROUP = "General";
 
@@ -29,7 +26,7 @@ class LastPassImporter {
         const groups = {};
         return Promise.resolve().then(() => {
             const vault = new Vault();
-            csvparse(this._data, { columns: true }).forEach(lastpassItem => {
+            csvparse(this._data, { columns: true }).forEach((lastpassItem) => {
                 const groupName = lastpassItem.grouping || DEFAULT_GROUP;
                 const group =
                     groups[groupName] ||
@@ -55,8 +52,8 @@ class LastPassImporter {
  * @static
  * @memberof LastPassImporter
  */
-LastPassImporter.loadFromFile = function(filename) {
-    return readFile(filename, "utf8").then(contents => {
+LastPassImporter.loadFromFile = function (filename) {
+    return fs.readFile(filename, "utf8").then((contents) => {
         return new LastPassImporter(contents);
     });
 };

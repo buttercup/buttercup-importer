@@ -5,14 +5,14 @@ const {
     Vault,
     consumeVaultFacade,
     createVaultFacade,
-    init
+    init,
 } = require("buttercup");
 
 const FACADE_MIN_VER = 2;
 
 function stripTrash(vaultFacade) {
     const trashGroup = vaultFacade.groups.find(
-        group =>
+        (group) =>
             group.attributes &&
             group.attributes[Group.Attribute.Role] === "trash"
     );
@@ -25,12 +25,12 @@ function stripTrash(vaultFacade) {
 function updateFacadeItemIDs(vaultFacade) {
     const idMap = {};
     let nextID = 1;
-    vaultFacade.groups.forEach(group => {
+    vaultFacade.groups.forEach((group) => {
         const newID = (idMap[group.id] = nextID.toString());
         nextID += 1;
         group.id = newID;
     });
-    vaultFacade.groups = vaultFacade.groups.filter(group => {
+    vaultFacade.groups = vaultFacade.groups.filter((group) => {
         if (group.parentID != "0") {
             const originalParentID = group.parentID;
             group.parentID = idMap[originalParentID];
@@ -40,7 +40,7 @@ function updateFacadeItemIDs(vaultFacade) {
         }
         return true;
     });
-    vaultFacade.entries = vaultFacade.entries.filter(entry => {
+    vaultFacade.entries = vaultFacade.entries.filter((entry) => {
         entry.id = nextID.toString();
         nextID += 1;
         const originalParentID = entry.parentID;
@@ -97,13 +97,13 @@ class ButtercupImporter {
  * @memberof ButtercupImporter
  * @static
  */
-ButtercupImporter.loadFromFile = function(filename, masterPassword) {
+ButtercupImporter.loadFromFile = function (filename, masterPassword) {
     init();
     const creds = new Credentials(
         {
             datasource: {
-                path: filename
-            }
+                path: filename,
+            },
         },
         masterPassword
     );

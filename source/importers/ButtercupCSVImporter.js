@@ -1,11 +1,8 @@
-const fs = require("fs");
-const pify = require("pify");
+const fs = require("fs/promises");
 const { Group, Vault } = require("buttercup");
 const csvparse = require("csv-parse/lib/sync");
 
 const NON_COPY_KEYS = ["id", "title"];
-
-const readFile = pify(fs.readFile);
 
 /**
  * Importer for Buttercup CSV exports
@@ -28,12 +25,12 @@ class ButtercupCSVImporter {
     export() {
         return Promise.resolve().then(() => {
             const vault = new Vault();
-            csvparse(this._csvData, { columns: true }).forEach(bcupItem => {
+            csvparse(this._csvData, { columns: true }).forEach((bcupItem) => {
                 const {
                     ["!type"]: itemType,
                     ["!group_id"]: groupID,
                     ["!group_name"]: groupName,
-                    ["!group_parent"]: groupParentID
+                    ["!group_parent"]: groupParentID,
                 } = bcupItem;
                 let group = vault.findGroupByID(groupID);
                 if (itemType === "group") {
@@ -49,10 +46,10 @@ class ButtercupCSVImporter {
                     }
                     const entry = group.createEntry(bcupItem.title);
                     Object.keys(bcupItem)
-                        .filter(key => /^\!.+/.test(key) === false)
-                        .filter(key => NON_COPY_KEYS.indexOf(key) === -1)
-                        .filter(key => bcupItem[key])
-                        .forEach(key => {
+                        .filter((key) => /^\!.+/.test(key) === false)
+                        .filter((key) => NON_COPY_KEYS.indexOf(key) === -1)
+                        .filter((key) => bcupItem[key])
+                        .forEach((key) => {
                             entry.setProperty(key, bcupItem[key]);
                         });
                 } else {
@@ -73,10 +70,10 @@ class ButtercupCSVImporter {
  * @memberof ButtercupCSVImporter
  * @static
  */
-ButtercupCSVImporter.loadFromFile = function(filename) {
-    return readFile(filename, "utf8").then(
-        data => new ButtercupCSVImporter(data)
-    );
+ButtercupCSVImporter.loadFromFile = function (filename) {
+    return fs
+        .readFile(filename, "utf8")
+        .then((data) => new ButtercupCSVImporter(data));
 };
 
 module.exports = ButtercupCSVImporter;

@@ -4,27 +4,27 @@ const { Entry, Group, Vault } = require("buttercup");
 
 const EXAMPLE_VAULT = path.resolve(__dirname, "../../resources/bitwarden.json");
 
-describe("BitwardenImporter", function() {
-    beforeEach(function() {
+describe("BitwardenImporter", function () {
+    beforeEach(function () {
         return BitwardenImporter.loadFromFile(EXAMPLE_VAULT)
-            .then(importer => importer.export())
-            .then(vault => {
+            .then((importer) => importer.export())
+            .then((vault) => {
                 this.vault = vault;
             });
     });
 
-    it("creates a vault instance", function() {
+    it("creates a vault instance", function () {
         expect(this.vault).to.be.an.instanceOf(Vault);
     });
 
-    it("cantains expected groups", function() {
-        const groups = this.vault.getGroups().map(g => g.getTitle());
+    it("cantains expected groups", function () {
+        const groups = this.vault.getGroups().map((g) => g.getTitle());
         expect(groups).to.have.lengthOf(2);
         expect(groups).to.contain("General");
         expect(groups).to.contain("FooBar");
     });
 
-    it("contains expected entries", function() {
+    it("contains expected entries", function () {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item without any info"
@@ -34,7 +34,7 @@ describe("BitwardenImporter", function() {
         expect(entry.getProperty("password")).to.be.undefined;
     });
 
-    it("imports login properties", function() {
+    it("imports login properties", function () {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item with login"
@@ -45,7 +45,7 @@ describe("BitwardenImporter", function() {
         // @todo should be a login
     });
 
-    it("imports URLs", function() {
+    it("imports URLs", function () {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item with login uri"
@@ -55,7 +55,7 @@ describe("BitwardenImporter", function() {
         // @todo should be a website
     });
 
-    it("imports notes", function() {
+    it("imports notes", function () {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item with notes"
@@ -65,7 +65,7 @@ describe("BitwardenImporter", function() {
         // @todo should be a note
     });
 
-    it("imports fields as properties", function() {
+    it("imports fields as properties", function () {
         const [entry] = this.vault.findEntriesByProperty(
             "title",
             "Item with fields"
