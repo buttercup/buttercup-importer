@@ -1,0 +1,57 @@
+{
+    "shared_folders": [],
+    "records": [
+        {
+            "title": "Username Test",
+            "$type": "login",
+            "schema": [
+                "$login::1",
+                "$password::1",
+                "$url::1",
+                "$fileRef::1",
+                "$oneTimeCode::1"
+            ],
+            "login": "username2",
+            "password": "password2",
+            "login_url": "https://example.org/"
+        },
+        {
+            "title": "Folder Test",
+            "$type": "login",
+            "schema": [
+                "$login::1",
+                "$password::1",
+                "$url::1",
+                "$fileRef::1",
+                "$oneTimeCode::1"
+            ],
+            "login": "username1",
+            "password": "password1",
+            "login_url": "https://example.org/",
+            "folders": [
+                {
+                    "folder": "Foo \\Bar "
+                }
+            ]
+        },
+        {
+            "title": "Sub Folder Entry Test",
+            "$type": "login",
+            "schema": [
+                "$login::1",
+                "$password::1",
+                "$url::1",
+                "$fileRef::1",
+                "$oneTimeCode::1"
+            ],
+            "login": "username3",
+            "password": "password3",
+            "login_url": "https://example.org/",
+            "folders": [
+                {
+                    "folder": "Foo \\Bar "
+                }
+            ]
+        }
+    ]
+}

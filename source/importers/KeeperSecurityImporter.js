@@ -57,25 +57,22 @@ class KeeperSecurityImporter {
                                 folders[folderIndex]
                             );
 
-                            // Section untested due to an odd issue with createEntry not instancing correctly?
-                            const entry = currentGroup.createEntry(
-                                record.title
-                            );
-                            entry.setProperty(
-                                "username",
-                                record.login == null ? "" : record.login
-                            );
-                            entry.setProperty(
-                                "password",
-                                record.password == null ? "" : record.password
-                            );
-                            entry.setProperty(
-                                "URL",
-                                record.login_url == null ? "" : record.login_url
-                            );
-
                             groups[folders[folderIndex]] = currentGroup;
                         }
+                        // Section untested due to an odd issue with createEntry not instancing correctly?
+                        const entry = currentGroup.createEntry(record.title);
+                        entry.setProperty(
+                            "username",
+                            record.login == null ? "" : record.login
+                        );
+                        entry.setProperty(
+                            "password",
+                            record.password == null ? "" : record.password
+                        );
+                        entry.setProperty(
+                            "URL",
+                            record.login_url == null ? "" : record.login_url
+                        );
                     }
                 }
             });
