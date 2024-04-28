@@ -5,6 +5,7 @@ const CSVImporter = require("./importers/CSVImporter.js");
 const KeePass2XMLImporter = require("./importers/KeePass2XMLImporter.js");
 const LastPassImporter = require("./importers/LastPassImporter.js");
 const OnePasswordImporter = require("./importers/OnePasswordImporter.js");
+const KeeperSecurityImporter = require("./importers/KeeperSecurityImporter.js");
 
 /**
  * @module ButtercupImporter
@@ -18,4 +19,5 @@ module.exports = {
     KeePass2XMLImporter,
     LastPassImporter,
     OnePasswordImporter,
+    KeeperSecurityImporter,
 };
